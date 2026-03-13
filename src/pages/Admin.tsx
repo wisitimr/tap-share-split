@@ -239,8 +239,8 @@ const QRTab = () => {
           <div className="mx-auto my-4 flex h-48 w-48 items-center justify-center rounded-xl border-2 border-dashed border-border bg-muted">
             <QrCode className="h-24 w-24 text-muted-foreground/50" />
           </div>
-          <div className="mb-3 flex items-center justify-center gap-1.5 rounded-lg bg-muted px-3 py-2">
-            <p className="text-xs text-muted-foreground break-all select-all">
+          <div className="mb-3 inline-flex items-center gap-1.5 rounded-lg bg-muted px-3 py-2">
+            <p className="text-xs text-muted-foreground select-all">
               https://rodbus.app/tap/{car.id}
             </p>
             <button
