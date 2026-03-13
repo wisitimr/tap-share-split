@@ -162,14 +162,6 @@ const SummaryTab = () => {
 
   return (
     <div className="space-y-3">
-      {isAdmin && (
-        <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 animate-fade-in">
-          <p className="text-xs font-medium text-muted-foreground">Total All Users (Gross)</p>
-          <p className="mt-1 text-2xl font-black tracking-tight text-foreground">{formatBaht(months[0].grossTotal)}</p>
-          <p className="mt-0.5 text-xs text-debt">Pending collection: {formatBaht(months[0].grossPending)}</p>
-        </div>
-      )}
-
       {months.map((month) => (
         <div key={month.key} className="rounded-2xl border border-border bg-card p-4 shadow-sm">
           <button
@@ -178,10 +170,18 @@ const SummaryTab = () => {
           >
             <div className="text-left">
               <p className="font-semibold text-foreground">{month.label}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Your total: <span className="font-bold text-foreground">{formatBaht(month.total)}</span>
+              </p>
               <div className="mt-0.5 flex gap-3 text-xs">
                 <span className="text-debt">Pending: {formatBaht(month.pending)}</span>
                 <span className="text-settled">Settled: {formatBaht(month.settled)}</span>
               </div>
+              {isAdmin && (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  All users (gross): <span className="font-bold text-foreground">{formatBaht(month.grossTotal)}</span>
+                </p>
+              )}
             </div>
             {expanded === month.key ? (
               <ChevronUp className="h-4 w-4 text-muted-foreground" />
