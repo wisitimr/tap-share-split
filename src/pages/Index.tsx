@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TrendingDown, AlertCircle, ChevronDown, ChevronUp, ArrowLeftRight } from "lucide-react";
+import { TrendingDown, AlertCircle, ChevronDown, ChevronUp, ArrowLeftRight, Wallet, Receipt } from "lucide-react";
 import BreakdownCard from "@/components/BreakdownCard";
 import RecentTrips from "@/components/RecentTrips";
 import BottomNav from "@/components/BottomNav";
@@ -17,54 +17,70 @@ const Dashboard = () => {
   const [showAllDebts, setShowAllDebts] = useState(false);
 
   const pendingDebts = mockDebts.filter((d) => d.status === "pending");
+  const settledDebts = mockDebts.filter((d) => d.status === "settled");
   const totalDebt = pendingDebts.reduce((sum, d) => sum + d.perPersonTotal, 0);
   const displayedDebts = showAllDebts ? pendingDebts : pendingDebts.slice(0, 5);
 
   return (
     <div className="min-h-screen pb-24">
-      {/* Header with integrated debt summary */}
-      <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur-md">
-        <div className="mx-auto max-w-lg px-4 pt-3">
+      {/* Header */}
+      <header className="sticky top-0 z-40 bg-gradient-to-b from-primary to-primary/90 text-primary-foreground">
+        <div className="mx-auto max-w-lg px-4 pt-4 pb-5">
+          {/* Top bar */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-primary/10 text-sm font-bold text-primary">
+              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-primary-foreground/20 text-sm font-bold ring-2 ring-primary-foreground/30">
                 {mockCurrentUser.image ? (
                   <img src={mockCurrentUser.image} alt={mockCurrentUser.name} className="h-full w-full object-cover" />
                 ) : (
-                  mockCurrentUser.name[0]
+                  <span className="text-primary-foreground">{mockCurrentUser.name[0]}</span>
                 )}
               </div>
               <div>
-                <h1 className="text-lg font-bold text-foreground">RodBus</h1>
-                <p className="text-xs text-muted-foreground">
+                <h1 className="text-lg font-bold">RodBus</h1>
+                <p className="text-xs text-primary-foreground/70">
                   สวัสดี, {mockCurrentUser.name}
                 </p>
               </div>
             </div>
             <button
               onClick={toggleRole}
-              className="flex items-center gap-1.5 rounded-lg border border-border bg-muted px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent"
+              className="flex items-center gap-1.5 rounded-lg bg-primary-foreground/15 px-2.5 py-1.5 text-xs font-medium text-primary-foreground/90 backdrop-blur-sm transition-colors hover:bg-primary-foreground/25"
             >
               <ArrowLeftRight className="h-3.5 w-3.5" />
               {role}
             </button>
           </div>
 
-          {/* Debt summary inline */}
-          <div className="mt-3 flex items-center justify-between rounded-xl bg-debt/5 px-4 py-3 mb-3">
-            <div>
-              <p className="text-xs font-medium text-muted-foreground">Your Pending Debt</p>
-              <p className="text-2xl font-black tracking-tight text-debt">
+          {/* Debt hero */}
+          <div className="mt-4 rounded-2xl bg-primary-foreground/10 p-4 backdrop-blur-sm">
+            <p className="text-xs font-medium text-primary-foreground/70">Your Pending Debt</p>
+            <div className="mt-1 flex items-end justify-between">
+              <p className="text-3xl font-black tracking-tight">
                 {formatBaht(totalDebt)}
               </p>
-            </div>
-            <div className="flex flex-col items-end gap-1">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-debt/10">
-                <TrendingDown className="h-5 w-5 text-debt" />
-              </div>
-              <p className="text-xs text-muted-foreground">
+              <div className="flex items-center gap-1.5 rounded-full bg-primary-foreground/10 px-2.5 py-1 text-xs font-medium text-primary-foreground/80">
+                <TrendingDown className="h-3.5 w-3.5" />
                 {pendingDebts.length} pending
-              </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick stats */}
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <div className="flex items-center gap-2 rounded-xl bg-primary-foreground/10 px-3 py-2">
+              <Wallet className="h-4 w-4 text-primary-foreground/60" />
+              <div>
+                <p className="text-xs text-primary-foreground/60">Settled</p>
+                <p className="text-sm font-bold">{settledDebts.length} trips</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl bg-primary-foreground/10 px-3 py-2">
+              <Receipt className="h-4 w-4 text-primary-foreground/60" />
+              <div>
+                <p className="text-xs text-primary-foreground/60">This month</p>
+                <p className="text-sm font-bold">{mockTrips.length} trips</p>
+              </div>
             </div>
           </div>
         </div>
@@ -95,7 +111,6 @@ const Dashboard = () => {
 
         {/* Recent Trips */}
         <RecentTrips trips={mockTrips} />
-
 
         {/* Zero debt state */}
         {pendingDebts.length === 0 && (
