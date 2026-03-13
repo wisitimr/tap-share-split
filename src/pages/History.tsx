@@ -168,19 +168,17 @@ const SummaryTab = () => {
             onClick={() => setExpanded(expanded === month.key ? null : month.key)}
             className="flex w-full items-center justify-between"
           >
-            <div className="text-left">
+            <div className="flex-1 text-left">
               <p className="font-semibold text-foreground">{month.label}</p>
               {isAdmin && (
                 <p className="mt-1 text-xs text-muted-foreground">
                   Grand Total: <span className="font-bold text-foreground">{formatBaht(month.grossTotal)}</span>
                 </p>
               )}
-              <p className="mt-0.5 text-xs text-muted-foreground">
-                Your total: <span className="font-bold text-foreground">{formatBaht(month.total)}</span>
-              </p>
-              <div className="mt-0.5 flex gap-3 text-xs">
+              <div className="mt-0.5 flex items-center gap-3 text-xs">
                 <span className="text-debt">Pending: {formatBaht(month.pending)}</span>
                 <span className="text-settled">Settled: {formatBaht(month.settled)}</span>
+                <span className="ml-auto font-bold text-foreground">{formatBaht(month.total)}</span>
               </div>
             </div>
             {expanded === month.key ? (
