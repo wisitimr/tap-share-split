@@ -75,16 +75,11 @@ export const formatBaht = (amount: number): string => {
   return `฿${amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 };
 
-// Convert to Buddhist Era year
-export const toBuddhistYear = (date: Date): number => {
-  return date.getFullYear() + 543;
-};
-
-// Format date with Buddhist Era
+// Format date (CE)
 export const formatDateBE = (dateStr: string): string => {
   const date = new Date(dateStr);
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  return `${months[date.getMonth()]} ${date.getDate()}, ${toBuddhistYear(date)}`;
+  return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 };
 
 export const formatTimeBE = (dateStr: string): string => {
