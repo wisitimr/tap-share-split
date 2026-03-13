@@ -80,16 +80,12 @@ const Dashboard = () => {
           {displayedDebts.map((entry) => (
             <BreakdownCard key={entry.id} entry={entry} />
           ))}
-          {pendingDebts.length > 5 && (
+          {hasMore && (
             <button
-              onClick={() => setShowAllDebts(!showAllDebts)}
+              onClick={() => setVisibleCount((c) => c + 5)}
               className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-primary transition-colors hover:bg-accent"
             >
-              {showAllDebts ? (
-                <>Show Less <ChevronUp className="h-4 w-4" /></>
-              ) : (
-                <>Load More ({pendingDebts.length - 5} more) <ChevronDown className="h-4 w-4" /></>
-              )}
+              Load More ({pendingDebts.length - visibleCount} more) <ChevronDown className="h-4 w-4" />
             </button>
           )}
         </div>
