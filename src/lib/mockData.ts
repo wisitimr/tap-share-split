@@ -50,7 +50,7 @@ export interface DebtEntry {
   perPersonGas: number;
   perPersonParking: number;
   perPersonTotal: number;
-  status: "pending" | "settled" | "partial";
+  status: "pending" | "settled";
 }
 
 export interface Payment {
@@ -147,12 +147,6 @@ export const mockDebts: DebtEntry[] = [
     gasCost: 200, parkingCost: 0, headcount: 3,
     riders: ["Somchai", "Somsri", "Sombat (Driver)"],
     perPersonGas: 66.67, perPersonParking: 0, perPersonTotal: 66.67, status: "settled",
-  },
-  {
-    id: "d8", date: "2026-03-09", carName: "Nissan Urvan", licensePlate: "ขข-5678",
-    gasCost: 180, parkingCost: 80, headcount: 4,
-    riders: ["Somchai", "Somying", "Noi", "Sombat (Driver)"],
-    perPersonGas: 45, perPersonParking: 20, perPersonTotal: 65, status: "partial",
   },
 ];
 
