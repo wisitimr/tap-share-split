@@ -48,7 +48,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <p className="mt-2 text-sm text-white/60">สวัสดี, {mockCurrentUser.name}</p>
+          <p className="mt-2 text-sm text-white/60">Welcome, {mockCurrentUser.name}</p>
         </div>
       </header>
 
