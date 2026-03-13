@@ -60,7 +60,7 @@ const Dashboard = () => {
             <div>
               {isAdmin && (
                 <div className="mb-2">
-                  <p className="text-xs font-medium text-muted-foreground">Grand Total (All Users)</p>
+                  <p className="text-xs font-medium text-muted-foreground">Grand Total</p>
                   <p className="text-2xl font-black tracking-tight text-foreground">
                     {formatBaht(grandTotal)}
                   </p>
