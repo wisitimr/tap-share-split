@@ -26,30 +26,30 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen pb-24">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-gradient-to-b from-[hsl(220,20%,14%)] to-[hsl(220,18%,18%)] text-white">
+      <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur-md">
         <div className="mx-auto max-w-lg px-4 pt-4 pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Bus className="h-6 w-6" />
-              <h1 className="text-lg font-bold">RodBus</h1>
+              <Bus className="h-6 w-6 text-primary" />
+              <h1 className="text-lg font-bold text-foreground">RodBus</h1>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={toggleRole}
-                className="rounded-lg bg-white/10 px-2 py-1 text-xs font-medium text-white/70 transition-colors hover:bg-white/20"
+                className="rounded-lg border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent"
               >
                 {role}
               </button>
-              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-white/15 text-sm font-bold ring-2 ring-white/20">
+              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-primary/10 text-sm font-bold text-primary ring-2 ring-primary/20">
                 {mockCurrentUser.image ? (
                   <img src={mockCurrentUser.image} alt={mockCurrentUser.name} className="h-full w-full object-cover" />
                 ) : (
-                  <span className="text-white">{mockCurrentUser.name[0]}</span>
+                  mockCurrentUser.name[0]
                 )}
               </div>
             </div>
           </div>
-          <p className="mt-2 text-sm text-white/60">Welcome, {mockCurrentUser.name}</p>
+          <p className="mt-2 text-sm text-muted-foreground">Welcome, {mockCurrentUser.name}</p>
         </div>
       </header>
 
