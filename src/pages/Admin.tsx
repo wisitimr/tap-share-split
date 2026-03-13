@@ -213,7 +213,7 @@ const CarsTab = () => {
           </div>
           <div>
             <label className="mb-1 block text-xs font-medium text-muted-foreground">
-              Default Gas Cost (฿) <span className="text-debt">*</span>
+              Default Gas Cost (฿) <span className="text-xs font-normal text-muted-foreground/60">(optional)</span>
             </label>
             <input
               type="number"
