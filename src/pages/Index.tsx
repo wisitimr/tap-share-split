@@ -28,11 +28,20 @@ const Dashboard = () => {
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-border bg-card/95 px-4 py-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-lg items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-foreground">RodBus</h1>
-            <p className="text-xs text-muted-foreground">
-              สวัสดี, {mockCurrentUser.name}
-            </p>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-primary/10 text-sm font-bold text-primary">
+              {mockCurrentUser.image ? (
+                <img src={mockCurrentUser.image} alt={mockCurrentUser.name} className="h-full w-full object-cover" />
+              ) : (
+                mockCurrentUser.name[0]
+              )}
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-foreground">RodBus</h1>
+              <p className="text-xs text-muted-foreground">
+                สวัสดี, {mockCurrentUser.name}
+              </p>
+            </div>
           </div>
           <button
             onClick={toggleRole}
