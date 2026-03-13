@@ -18,6 +18,7 @@ import {
   Copy,
   Check,
   Pencil,
+  UserRoundCog,
 } from "lucide-react";
 
 type AdminTab = "users" | "cars" | "qr";
@@ -133,7 +134,7 @@ const UsersTab = () => {
                   className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                   title="Change role"
                 >
-                  <Pencil className="h-4 w-4" />
+                  <UserRoundCog className="h-4 w-4" />
                 </button>
                 <button className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-debt/10 hover:text-debt" title="Remove user">
                   <Trash2 className="h-4 w-4" />
