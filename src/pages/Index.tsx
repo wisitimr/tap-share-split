@@ -19,6 +19,7 @@ const Dashboard = () => {
   const pendingDebts = mockDebts.filter((d) => d.status === "pending");
   const settledDebts = mockDebts.filter((d) => d.status === "settled");
   const totalDebt = pendingDebts.reduce((sum, d) => sum + d.perPersonTotal, 0);
+  const grandTotal = pendingDebts.reduce((sum, d) => sum + d.gasCost + d.parkingCost, 0);
   const displayedDebts = pendingDebts.slice(0, visibleCount);
   const hasMore = visibleCount < pendingDebts.length;
 
