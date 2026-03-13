@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TrendingDown, AlertCircle, ChevronDown, ChevronUp, Bus } from "lucide-react";
 import BreakdownCard from "@/components/BreakdownCard";
 import RecentTrips from "@/components/RecentTrips";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import BottomNav from "@/components/BottomNav";
 import { useRole } from "@/context/RoleContext";
 import {
