@@ -2,9 +2,8 @@ import { useState } from "react";
 import { TrendingDown, AlertCircle, ChevronDown, ChevronUp, ArrowLeftRight } from "lucide-react";
 import BreakdownCard from "@/components/BreakdownCard";
 import RecentTrips from "@/components/RecentTrips";
-import AdminCostEntry from "@/components/AdminCostEntry";
-import DebtSettlement from "@/components/DebtSettlement";
 import BottomNav from "@/components/BottomNav";
+import { useRole } from "@/context/RoleContext";
 import { useRole } from "@/context/RoleContext";
 import {
   mockDebts,
