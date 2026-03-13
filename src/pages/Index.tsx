@@ -16,6 +16,8 @@ const Dashboard = () => {
   const { role, toggleRole } = useRole();
   const isAdmin = role === "ADMIN";
   const [visibleCount, setVisibleCount] = useState(5);
+  const [debtOpen, setDebtOpen] = useState(true);
+  const [tripsOpen, setTripsOpen] = useState(true);
 
   const pendingDebts = mockDebts.filter((d) => d.status === "pending");
   const settledDebts = mockDebts.filter((d) => d.status === "settled");
