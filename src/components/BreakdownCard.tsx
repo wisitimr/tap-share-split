@@ -26,12 +26,11 @@ const BreakdownCard = ({ entry, showStatus = true }: BreakdownCardProps) => {
                 className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${
                   entry.status === "settled"
                     ? "bg-settled/10 text-settled"
-                    : entry.status === "partial"
-                    ? "bg-pending-status/10 text-pending-status"
                     : "bg-debt/10 text-debt"
                 }`}
               >
-                {entry.status === "settled" ? "Settled" : entry.status === "partial" ? "Partial" : "Pending"}
+                {entry.status === "settled" ? "Settled" : "Pending"}
+              </span>
               </span>
             )}
           </div>

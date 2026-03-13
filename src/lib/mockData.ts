@@ -148,12 +148,6 @@ export const mockDebts: DebtEntry[] = [
     riders: ["Somchai", "Somsri", "Sombat (Driver)"],
     perPersonGas: 66.67, perPersonParking: 0, perPersonTotal: 66.67, status: "settled",
   },
-  {
-    id: "d8", date: "2026-03-09", carName: "Nissan Urvan", licensePlate: "ขข-5678",
-    gasCost: 180, parkingCost: 80, headcount: 4,
-    riders: ["Somchai", "Somying", "Noi", "Sombat (Driver)"],
-    perPersonGas: 45, perPersonParking: 20, perPersonTotal: 65, status: "partial",
-  },
 ];
 
 export const mockTrips: Trip[] = [
