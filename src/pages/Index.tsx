@@ -8,7 +8,6 @@ import { useRole } from "@/context/RoleContext";
 import {
   mockDebts,
   mockTrips,
-  mockUserDebts,
   mockCurrentUser,
   formatBaht,
 } from "@/lib/mockData";
