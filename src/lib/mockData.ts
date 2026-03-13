@@ -51,6 +51,7 @@ export interface DebtEntry {
   perPersonParking: number;
   perPersonTotal: number;
   status: "pending" | "settled";
+  tripNumber?: number;
 }
 
 export interface Payment {
@@ -105,61 +106,61 @@ export const mockDebts: DebtEntry[] = [
     id: "d1", date: "2026-03-10", carName: "Toyota HiAce", licensePlate: "กก-1234",
     gasCost: 200, parkingCost: 100, headcount: 4,
     riders: ["Somchai", "Somying", "Somsri", "Sombat (Driver)"],
-    perPersonGas: 50, perPersonParking: 25, perPersonTotal: 75, status: "pending",
+    perPersonGas: 50, perPersonParking: 25, perPersonTotal: 75, status: "pending", tripNumber: 1,
   },
   {
     id: "d2", date: "2026-03-11", carName: "Toyota HiAce", licensePlate: "กก-1234",
     gasCost: 150, parkingCost: 75, headcount: 3,
     riders: ["Somchai", "Somying", "Sombat (Driver)"],
-    perPersonGas: 50, perPersonParking: 25, perPersonTotal: 75, status: "pending",
+    perPersonGas: 50, perPersonParking: 25, perPersonTotal: 75, status: "pending", tripNumber: 1,
   },
   {
     id: "d3", date: "2026-03-12", carName: "Nissan Urvan", licensePlate: "ขข-5678",
     gasCost: 180, parkingCost: 0, headcount: 4,
     riders: ["Somchai", "Noi", "Lek", "Sombat (Driver)"],
-    perPersonGas: 45, perPersonParking: 0, perPersonTotal: 45, status: "pending",
+    perPersonGas: 45, perPersonParking: 0, perPersonTotal: 45, status: "pending", tripNumber: 1,
   },
   {
     id: "d4", date: "2026-03-13", carName: "Toyota HiAce", licensePlate: "กก-1234",
     gasCost: 200, parkingCost: 60, headcount: 5,
     riders: ["Somchai", "Somying", "Somsri", "Noi", "Sombat (Driver)"],
-    perPersonGas: 40, perPersonParking: 12, perPersonTotal: 52, status: "pending",
+    perPersonGas: 40, perPersonParking: 12, perPersonTotal: 52, status: "pending", tripNumber: 1,
   },
   {
     id: "d4b", date: "2026-03-08", carName: "Nissan Urvan", licensePlate: "ขข-5678",
     gasCost: 180, parkingCost: 40, headcount: 3,
     riders: ["Somchai", "Lek", "Sombat (Driver)"],
-    perPersonGas: 60, perPersonParking: 13.33, perPersonTotal: 73.33, status: "pending",
+    perPersonGas: 60, perPersonParking: 13.33, perPersonTotal: 73.33, status: "pending", tripNumber: 1,
   },
   {
     id: "d4c", date: "2026-03-06", carName: "Toyota HiAce", licensePlate: "กก-1234",
     gasCost: 200, parkingCost: 0, headcount: 4,
     riders: ["Somchai", "Somying", "Noi", "Sombat (Driver)"],
-    perPersonGas: 50, perPersonParking: 0, perPersonTotal: 50, status: "pending",
+    perPersonGas: 50, perPersonParking: 0, perPersonTotal: 50, status: "pending", tripNumber: 2,
   },
   {
     id: "d4d", date: "2026-03-04", carName: "Nissan Urvan", licensePlate: "ขข-5678",
     gasCost: 180, parkingCost: 60, headcount: 5,
     riders: ["Somchai", "Somying", "Somsri", "Noi", "Sombat (Driver)"],
-    perPersonGas: 36, perPersonParking: 12, perPersonTotal: 48, status: "pending",
+    perPersonGas: 36, perPersonParking: 12, perPersonTotal: 48, status: "pending", tripNumber: 1,
   },
   {
     id: "d5", date: "2026-03-05", carName: "Toyota HiAce", licensePlate: "กก-1234",
     gasCost: 200, parkingCost: 50, headcount: 5,
     riders: ["Somchai", "Somying", "Somsri", "Noi", "Sombat (Driver)"],
-    perPersonGas: 40, perPersonParking: 10, perPersonTotal: 50, status: "settled",
+    perPersonGas: 40, perPersonParking: 10, perPersonTotal: 50, status: "settled", tripNumber: 1,
   },
   {
     id: "d6", date: "2026-03-03", carName: "Nissan Urvan", licensePlate: "ขข-5678",
     gasCost: 180, parkingCost: 40, headcount: 4,
     riders: ["Somchai", "Somying", "Lek", "Sombat (Driver)"],
-    perPersonGas: 45, perPersonParking: 10, perPersonTotal: 55, status: "settled",
+    perPersonGas: 45, perPersonParking: 10, perPersonTotal: 55, status: "settled", tripNumber: 1,
   },
   {
     id: "d7", date: "2026-03-07", carName: "Toyota HiAce", licensePlate: "กก-1234",
     gasCost: 200, parkingCost: 0, headcount: 3,
     riders: ["Somchai", "Somsri", "Sombat (Driver)"],
-    perPersonGas: 66.67, perPersonParking: 0, perPersonTotal: 66.67, status: "settled",
+    perPersonGas: 66.67, perPersonParking: 0, perPersonTotal: 66.67, status: "settled", tripNumber: 2,
   },
 ];
 
