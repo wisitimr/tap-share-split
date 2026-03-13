@@ -7,6 +7,7 @@ import { RoleProvider } from "@/context/RoleContext";
 import Index from "./pages/Index.tsx";
 import History from "./pages/History.tsx";
 import Admin from "./pages/Admin.tsx";
+import ManageTrips from "./pages/ManageTrips.tsx";
 import TapPage from "./pages/TapPage.tsx";
 import PendingApproval from "./pages/PendingApproval.tsx";
 import NotFound from "./pages/NotFound.tsx";
