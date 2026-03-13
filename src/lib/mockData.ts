@@ -147,6 +147,7 @@ export const mockDebts: DebtEntry[] = [
     gasCost: 180, parkingCost: 60, headcount: 5,
     riders: ["Somchai", "Somying", "Somsri", "Noi", "Sombat (Driver)"],
     perPersonGas: 36, perPersonParking: 12, perPersonTotal: 48, status: "pending",
+  },
   {
     id: "d5", date: "2026-03-05", carName: "Toyota HiAce", licensePlate: "กก-1234",
     gasCost: 200, parkingCost: 50, headcount: 5,
