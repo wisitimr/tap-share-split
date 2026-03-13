@@ -65,24 +65,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
-          {/* Quick stats */}
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <div className="flex items-center gap-2 rounded-xl bg-primary-foreground/10 px-3 py-2">
-              <Wallet className="h-4 w-4 text-primary-foreground/60" />
-              <div>
-                <p className="text-xs text-primary-foreground/60">Settled</p>
-                <p className="text-sm font-bold">{settledDebts.length} trips</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 rounded-xl bg-primary-foreground/10 px-3 py-2">
-              <Receipt className="h-4 w-4 text-primary-foreground/60" />
-              <div>
-                <p className="text-xs text-primary-foreground/60">This month</p>
-                <p className="text-sm font-bold">{mockTrips.length} trips</p>
-              </div>
-            </div>
-          </div>
         </div>
       </header>
 
