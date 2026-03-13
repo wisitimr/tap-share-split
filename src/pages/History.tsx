@@ -178,7 +178,7 @@ const SummaryTab = () => {
               <div className="mt-0.5 flex items-center gap-3 text-xs">
                 <span className="text-debt">Pending: {formatBaht(month.pending)}</span>
                 <span className="text-settled">Settled: {formatBaht(month.settled)}</span>
-                <span className="ml-auto font-bold text-foreground">{formatBaht(month.total)}</span>
+                <span className="ml-auto text-muted-foreground">Total: <span className="font-bold text-foreground">{formatBaht(month.total)}</span></span>
               </div>
             </div>
             {expanded === month.key ? (
