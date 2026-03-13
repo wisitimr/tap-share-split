@@ -170,18 +170,18 @@ const SummaryTab = () => {
           >
             <div className="text-left">
               <p className="font-semibold text-foreground">{month.label}</p>
-              <p className="mt-1 text-xs text-muted-foreground">
+              {isAdmin && (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Grand Total: <span className="font-bold text-foreground">{formatBaht(month.grossTotal)}</span>
+                </p>
+              )}
+              <p className="mt-0.5 text-xs text-muted-foreground">
                 Your total: <span className="font-bold text-foreground">{formatBaht(month.total)}</span>
               </p>
               <div className="mt-0.5 flex gap-3 text-xs">
                 <span className="text-debt">Pending: {formatBaht(month.pending)}</span>
                 <span className="text-settled">Settled: {formatBaht(month.settled)}</span>
               </div>
-              {isAdmin && (
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Grand Total: <span className="font-bold text-foreground">{formatBaht(month.grossTotal)}</span>
-                </p>
-              )}
             </div>
             {expanded === month.key ? (
               <ChevronUp className="h-4 w-4 text-muted-foreground" />
