@@ -14,12 +14,13 @@ import {
 const Dashboard = () => {
   const { role, toggleRole } = useRole();
   const isAdmin = role === "ADMIN";
-  const [showAllDebts, setShowAllDebts] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(5);
 
   const pendingDebts = mockDebts.filter((d) => d.status === "pending");
   const settledDebts = mockDebts.filter((d) => d.status === "settled");
   const totalDebt = pendingDebts.reduce((sum, d) => sum + d.perPersonTotal, 0);
-  const displayedDebts = showAllDebts ? pendingDebts : pendingDebts.slice(0, 5);
+  const displayedDebts = pendingDebts.slice(0, visibleCount);
+  const hasMore = visibleCount < pendingDebts.length;
 
   return (
     <div className="min-h-screen pb-24">
