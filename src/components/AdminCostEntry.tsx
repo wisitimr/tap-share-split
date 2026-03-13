@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { mockCars, formatBaht } from "@/lib/mockData";
-import { Save, Loader2, Fuel, ParkingCircle, Car } from "lucide-react";
+import { Plus, Loader2, Fuel, ParkingCircle, Car } from "lucide-react";
 
 const AdminCostEntry = () => {
   const [selectedCar, setSelectedCar] = useState(mockCars[0]?.id || "");
@@ -15,12 +15,10 @@ const AdminCostEntry = () => {
     setSaving(false);
   };
 
-  const selectedCarData = mockCars.find(c => c.id === selectedCar);
-
   return (
     <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
       <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-        Record Today's Costs
+        New Trip
       </h3>
 
       <div className="space-y-3">
@@ -86,11 +84,11 @@ const AdminCostEntry = () => {
         >
           {saving ? (
             <>
-              <Loader2 className="h-4 w-4 animate-spin" /> Saving...
+              <Loader2 className="h-4 w-4 animate-spin" /> Creating...
             </>
           ) : (
             <>
-              <Save className="h-4 w-4" /> Save Costs
+              <Plus className="h-4 w-4" /> Create
             </>
           )}
         </Button>

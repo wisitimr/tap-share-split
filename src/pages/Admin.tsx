@@ -10,21 +10,21 @@ import {
 import {
   Users,
   Car,
-  CalendarOff,
   QrCode,
-  Shield,
   ShieldCheck,
-  Clock,
   Trash2,
   Plus,
   Download,
+  Copy,
+  Check,
+  Pencil,
 } from "lucide-react";
 
-type AdminTab = "users" | "cars" | "dates" | "qr";
+type AdminTab = "users" | "cars" | "qr";
 
 const roleBadge: Record<UserRole, { label: string; className: string }> = {
   PENDING: { label: "Pending", className: "bg-warning/10 text-warning" },
-  USER: { label: "User", className: "bg-success/10 text-success" },
+  USER: { label: "User", className: "bg-settled/10 text-settled" },
   ADMIN: { label: "Admin", className: "bg-debt/10 text-debt" },
 };
 
@@ -34,7 +34,6 @@ const Admin = () => {
   const tabs: { key: AdminTab; label: string; icon: typeof Users }[] = [
     { key: "users", label: "Users", icon: Users },
     { key: "cars", label: "Cars", icon: Car },
-    { key: "dates", label: "Dates", icon: CalendarOff },
     { key: "qr", label: "QR", icon: QrCode },
   ];
 
@@ -65,7 +64,6 @@ const Admin = () => {
       <main className="mx-auto max-w-lg p-4">
         {tab === "users" && <UsersTab />}
         {tab === "cars" && <CarsTab />}
-        {tab === "dates" && <DatesTab />}
         {tab === "qr" && <QRTab />}
       </main>
 
@@ -75,8 +73,10 @@ const Admin = () => {
 };
 
 const UsersTab = () => {
+  const [roleMenu, setRoleMenu] = useState<string | null>(null);
   const pending = mockAllUsers.filter((u) => u.role === "PENDING");
   const others = mockAllUsers.filter((u) => u.role !== "PENDING");
+  const roleOptions: UserRole[] = ["USER", "ADMIN"];
 
   return (
     <div className="space-y-4">
@@ -90,13 +90,18 @@ const UsersTab = () => {
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-warning/20 text-sm font-bold text-warning">
                 {user.name[0]}
               </div>
-              <div className="flex-1">
-                <p className="font-semibold text-foreground">{user.name}</p>
-                <p className="text-xs text-muted-foreground">{user.email}</p>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-foreground truncate">{user.name}</p>
+                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
               </div>
-              <Button size="sm" variant="success">
-                <ShieldCheck className="h-4 w-4" /> Approve
-              </Button>
+              <div className="flex gap-1.5">
+                <Button size="sm" variant="success">
+                  <ShieldCheck className="h-4 w-4" /> Approve
+                </Button>
+                <button className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-debt/10 hover:text-debt">
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -109,19 +114,47 @@ const UsersTab = () => {
         {others.map((user) => {
           const badge = roleBadge[user.role];
           return (
-            <div key={user.id} className="flex items-center gap-3 rounded-xl border border-border bg-card p-3 animate-fade-in">
+            <div key={user.id} className="relative flex items-center gap-3 rounded-xl border border-border bg-card p-3 animate-fade-in">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
                 {user.name[0]}
               </div>
-              <div className="flex-1">
+              <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="font-semibold text-foreground">{user.name}</p>
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${badge.className}`}>
+                  <p className="font-semibold text-foreground truncate">{user.name}</p>
+                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${badge.className}`}>
                     {badge.label}
                   </span>
                 </div>
-                <p className="text-xs text-muted-foreground">{user.email}</p>
+                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
               </div>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => setRoleMenu(roleMenu === user.id ? null : user.id)}
+                  className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  title="Change role"
+                >
+                  <Pencil className="h-4 w-4" />
+                </button>
+                <button className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-debt/10 hover:text-debt" title="Remove user">
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
+
+              {roleMenu === user.id && (
+                <div className="absolute right-12 top-12 z-10 rounded-xl border border-border bg-card p-1.5 shadow-lg animate-fade-in">
+                  {roleOptions.map((role) => (
+                    <button
+                      key={role}
+                      onClick={() => setRoleMenu(null)}
+                      className={`block w-full rounded-lg px-3 py-1.5 text-left text-sm font-medium transition-colors hover:bg-accent ${
+                        user.role === role ? "text-primary" : "text-foreground"
+                      }`}
+                    >
+                      {role}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           );
         })}
@@ -130,78 +163,106 @@ const UsersTab = () => {
   );
 };
 
-const CarsTab = () => (
-  <div className="space-y-3">
-    <Button size="touch" className="w-full">
-      <Plus className="h-4 w-4" /> Add New Car
-    </Button>
-    {mockCars.map((car) => (
-      <div key={car.id} className="rounded-xl border border-border bg-card p-4 animate-fade-in">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="font-semibold text-foreground">{car.name}</p>
-            <p className="text-sm text-muted-foreground">{car.licensePlate}</p>
-          </div>
-          <button className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-debt/10 hover:text-debt">
-            <Trash2 className="h-4 w-4" />
-          </button>
-        </div>
-        <div className="mt-2 flex items-center gap-2 rounded-lg bg-accent/50 px-2.5 py-1.5 text-xs text-muted-foreground">
-          <span>Default gas cost:</span>
-          <span className="font-bold text-foreground">{formatBaht(car.defaultGasCost)}</span>
-        </div>
-      </div>
-    ))}
-  </div>
-);
-
-const DatesTab = () => {
-  const disabledDates = [
-    { date: "2026-03-15", reason: "Public Holiday - Makha Bucha" },
-    { date: "2026-04-13", reason: "Songkran Festival" },
-  ];
+const CarsTab = () => {
+  const [editingGas, setEditingGas] = useState<string | null>(null);
+  const [gasValue, setGasValue] = useState("");
 
   return (
     <div className="space-y-3">
       <Button size="touch" className="w-full">
-        <Plus className="h-4 w-4" /> Add Disabled Date
+        <Plus className="h-4 w-4" /> Add New Car
       </Button>
-      {disabledDates.map((d) => (
-        <div key={d.date} className="flex items-center gap-3 rounded-xl border border-border bg-card p-3 animate-fade-in">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-debt/10">
-            <CalendarOff className="h-5 w-5 text-debt" />
+      {mockCars.map((car) => (
+        <div key={car.id} className="rounded-xl border border-border bg-card p-4 animate-fade-in">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-semibold text-foreground">{car.name}</p>
+              <p className="text-sm text-muted-foreground">{car.licensePlate}</p>
+            </div>
+            <button className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-debt/10 hover:text-debt">
+              <Trash2 className="h-4 w-4" />
+            </button>
           </div>
-          <div className="flex-1">
-            <p className="text-sm font-semibold text-foreground">{d.date}</p>
-            <p className="text-xs text-muted-foreground">{d.reason}</p>
+          <div className="mt-2 flex items-center gap-2 rounded-lg bg-accent/50 px-2.5 py-1.5 text-xs text-muted-foreground">
+            <span>Default gas cost:</span>
+            {editingGas === car.id ? (
+              <div className="flex flex-1 items-center gap-1.5">
+                <input
+                  type="number"
+                  value={gasValue}
+                  onChange={(e) => setGasValue(e.target.value)}
+                  className="w-20 rounded-md border border-input bg-background px-2 py-1 text-xs font-bold text-foreground"
+                  autoFocus
+                />
+                <button
+                  onClick={() => setEditingGas(null)}
+                  className="rounded-md bg-primary px-2 py-1 text-xs font-semibold text-primary-foreground"
+                >
+                  Save
+                </button>
+              </div>
+            ) : (
+              <>
+                <span className="font-bold text-foreground">{formatBaht(car.defaultGasCost)}</span>
+                <button
+                  onClick={() => { setEditingGas(car.id); setGasValue(car.defaultGasCost.toString()); }}
+                  className="ml-auto rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  title="Edit gas cost"
+                >
+                  <Pencil className="h-3 w-3" />
+                </button>
+              </>
+            )}
           </div>
-          <button className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-debt/10 hover:text-debt">
-            <Trash2 className="h-4 w-4" />
-          </button>
         </div>
       ))}
     </div>
   );
 };
 
-const QRTab = () => (
-  <div className="space-y-4">
-    {mockCars.map((car) => (
-      <div key={car.id} className="rounded-2xl border border-border bg-card p-5 text-center animate-fade-in">
-        <p className="font-semibold text-foreground">{car.name}</p>
-        <p className="text-sm text-muted-foreground">{car.licensePlate}</p>
-        <div className="mx-auto my-4 flex h-48 w-48 items-center justify-center rounded-xl border-2 border-dashed border-border bg-muted">
-          <QrCode className="h-24 w-24 text-muted-foreground/50" />
+const QRTab = () => {
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopy = async (carId: string) => {
+    const url = `https://rodbus.app/tap/${carId}`;
+    await navigator.clipboard.writeText(url);
+    setCopiedId(carId);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  return (
+    <div className="space-y-4">
+      {mockCars.map((car) => (
+        <div key={car.id} className="rounded-2xl border border-border bg-card p-5 text-center animate-fade-in">
+          <p className="font-semibold text-foreground">{car.name}</p>
+          <p className="text-sm text-muted-foreground">{car.licensePlate}</p>
+          <div className="mx-auto my-4 flex h-48 w-48 items-center justify-center rounded-xl border-2 border-dashed border-border bg-muted">
+            <QrCode className="h-24 w-24 text-muted-foreground/50" />
+          </div>
+          <p className="mb-3 text-xs text-muted-foreground break-all">
+            https://rodbus.app/tap/{car.id}
+          </p>
+          <div className="flex gap-2">
+            <Button variant="outline" size="touch" className="flex-1">
+              <Download className="h-4 w-4" /> Download
+            </Button>
+            <Button
+              variant="outline"
+              size="touch"
+              className="flex-1"
+              onClick={() => handleCopy(car.id)}
+            >
+              {copiedId === car.id ? (
+                <><Check className="h-4 w-4 text-settled" /> Copied!</>
+              ) : (
+                <><Copy className="h-4 w-4" /> Copy Link</>
+              )}
+            </Button>
+          </div>
         </div>
-        <p className="mb-3 text-xs text-muted-foreground break-all">
-          https://rodbus.app/tap/{car.id}
-        </p>
-        <Button variant="outline" size="touch" className="w-full">
-          <Download className="h-4 w-4" /> Download QR Code
-        </Button>
-      </div>
-    ))}
-  </div>
-);
+      ))}
+    </div>
+  );
+};
 
 export default Admin;

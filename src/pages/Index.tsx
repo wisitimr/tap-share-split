@@ -9,11 +9,12 @@ import {
   mockDebts,
   mockTrips,
   mockUserDebts,
+  mockCurrentUser,
   formatBaht,
 } from "@/lib/mockData";
 
 const Dashboard = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const isAdmin = mockCurrentUser.role === "ADMIN";
   const [showAllDebts, setShowAllDebts] = useState(false);
 
   const pendingDebts = mockDebts.filter((d) => d.status === "pending");
@@ -28,15 +29,9 @@ const Dashboard = () => {
           <div>
             <h1 className="text-lg font-bold text-foreground">RodBus</h1>
             <p className="text-xs text-muted-foreground">
-              {isAdmin ? "Admin Dashboard" : "Passenger Dashboard"}
+              สวัสดี, {mockCurrentUser.name}
             </p>
           </div>
-          <button
-            onClick={() => setIsAdmin(!isAdmin)}
-            className="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
-          >
-            {isAdmin ? "Switch to User" : "Switch to Admin"}
-          </button>
         </div>
       </header>
 
@@ -46,10 +41,10 @@ const Dashboard = () => {
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm font-medium text-muted-foreground">
-                {isAdmin ? "Total Outstanding" : "Your Pending Debt"}
+                Your Pending Debt
               </p>
               <p className="mt-1 text-4xl font-black tracking-tight text-debt">
-                {formatBaht(isAdmin ? mockUserDebts.reduce((s, u) => s + u.totalDebt, 0) : totalDebt)}
+                {formatBaht(totalDebt)}
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
                 {pendingDebts.length} pending {pendingDebts.length === 1 ? "item" : "items"}
@@ -61,41 +56,39 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Admin: Cost Entry */}
+        {/* Debt Breakdown */}
+        <div className="space-y-2">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Debt Breakdown
+          </h3>
+          {displayedDebts.map((entry) => (
+            <BreakdownCard key={entry.id} entry={entry} />
+          ))}
+          {pendingDebts.length > 5 && (
+            <button
+              onClick={() => setShowAllDebts(!showAllDebts)}
+              className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-primary transition-colors hover:bg-accent"
+            >
+              {showAllDebts ? (
+                <>Show Less <ChevronUp className="h-4 w-4" /></>
+              ) : (
+                <>Load More ({pendingDebts.length - 5} more) <ChevronDown className="h-4 w-4" /></>
+              )}
+            </button>
+          )}
+        </div>
+
+        {/* Recent Trips */}
+        <RecentTrips trips={mockTrips} />
+
+        {/* Admin: New Trip (Cost Entry) */}
         {isAdmin && <AdminCostEntry />}
 
         {/* Admin: Debt Settlement */}
         {isAdmin && <DebtSettlement userDebts={mockUserDebts} />}
 
-        {/* Debt Breakdown */}
-        {!isAdmin && (
-          <div className="space-y-2">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-              Debt Breakdown
-            </h3>
-            {displayedDebts.map((entry) => (
-              <BreakdownCard key={entry.id} entry={entry} />
-            ))}
-            {pendingDebts.length > 5 && (
-              <button
-                onClick={() => setShowAllDebts(!showAllDebts)}
-                className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-primary transition-colors hover:bg-accent"
-              >
-                {showAllDebts ? (
-                  <>Show Less <ChevronUp className="h-4 w-4" /></>
-                ) : (
-                  <>Load More ({pendingDebts.length - 5} more) <ChevronDown className="h-4 w-4" /></>
-                )}
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* Recent Trips */}
-        {!isAdmin && <RecentTrips trips={mockTrips} />}
-
         {/* Zero debt state */}
-        {!isAdmin && pendingDebts.length === 0 && (
+        {pendingDebts.length === 0 && (
           <div className="animate-scale-in rounded-2xl border border-settled/20 bg-card p-6 text-center">
             <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-settled/10">
               <AlertCircle className="h-8 w-8 text-settled" />
