@@ -128,18 +128,24 @@ const PaymentsTab = () => (
   <div className="space-y-2">
     {mockPayments.map((payment) => (
       <div key={payment.id} className="rounded-xl border border-border bg-card p-4 animate-fade-in">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-semibold text-foreground">{payment.carName}</p>
-            <p className="text-xs text-muted-foreground">
-              Paid: {formatDateBE(payment.date)}
-            </p>
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-settled/10">
+            <CreditCard className="h-5 w-5 text-settled" />
           </div>
-          <span className="text-lg font-bold text-settled">{formatBaht(payment.amount)}</span>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold text-foreground truncate">{payment.userName}</p>
+              <span className="text-lg font-bold text-settled">{formatBaht(payment.amount)}</span>
+            </div>
+            <p className="text-xs text-muted-foreground">{payment.carName}</p>
+            <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
+              <span>📅 Paid on {formatDateBE(payment.date)}</span>
+            </div>
+            {payment.note && (
+              <p className="mt-1 text-xs text-muted-foreground">📝 {payment.note}</p>
+            )}
+          </div>
         </div>
-        {payment.note && (
-          <p className="mt-1 text-xs text-muted-foreground">📝 {payment.note}</p>
-        )}
       </div>
     ))}
   </div>
