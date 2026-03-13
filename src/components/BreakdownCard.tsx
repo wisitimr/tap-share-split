@@ -36,6 +36,9 @@ const BreakdownCard = ({ entry, showStatus = true }: BreakdownCardProps) => {
           <p className="mt-0.5 font-semibold text-foreground">
             {entry.carName}{" "}
             <span className="text-sm font-normal text-muted-foreground">({entry.licensePlate})</span>
+            {entry.tripNumber && (
+              <span className="ml-1.5 text-xs font-medium text-primary">Trip #{entry.tripNumber}</span>
+            )}
           </p>
         </div>
         <div className="flex items-center gap-2">
