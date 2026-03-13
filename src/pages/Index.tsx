@@ -1,14 +1,114 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { TrendingDown, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
+import BreakdownCard from "@/components/BreakdownCard";
+import RecentTrips from "@/components/RecentTrips";
+import AdminCostEntry from "@/components/AdminCostEntry";
+import DebtSettlement from "@/components/DebtSettlement";
+import BottomNav from "@/components/BottomNav";
+import {
+  mockDebts,
+  mockTrips,
+  mockUserDebts,
+  formatBaht,
+} from "@/lib/mockData";
 
-const Index = () => {
+const Dashboard = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showAllDebts, setShowAllDebts] = useState(false);
+
+  const pendingDebts = mockDebts.filter((d) => d.status === "pending");
+  const totalDebt = pendingDebts.reduce((sum, d) => sum + d.perPersonTotal, 0);
+  const displayedDebts = showAllDebts ? pendingDebts : pendingDebts.slice(0, 5);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen pb-24">
+      {/* Header */}
+      <header className="sticky top-0 z-40 border-b border-border bg-card/95 px-4 py-3 backdrop-blur-md">
+        <div className="mx-auto flex max-w-lg items-center justify-between">
+          <div>
+            <h1 className="text-lg font-bold text-foreground">RodBus</h1>
+            <p className="text-xs text-muted-foreground">
+              {isAdmin ? "Admin Dashboard" : "Passenger Dashboard"}
+            </p>
+          </div>
+          <button
+            onClick={() => setIsAdmin(!isAdmin)}
+            className="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+          >
+            {isAdmin ? "Switch to User" : "Switch to Admin"}
+          </button>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-lg space-y-4 p-4">
+        {/* Total Debt Card */}
+        <div className="animate-scale-in rounded-2xl border border-debt/20 bg-card p-5 shadow-lg shadow-debt/5">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">
+                {isAdmin ? "Total Outstanding" : "Your Pending Debt"}
+              </p>
+              <p className="mt-1 text-4xl font-black tracking-tight text-debt">
+                {formatBaht(isAdmin ? mockUserDebts.reduce((s, u) => s + u.totalDebt, 0) : totalDebt)}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {pendingDebts.length} pending {pendingDebts.length === 1 ? "item" : "items"}
+              </p>
+            </div>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-debt/10">
+              <TrendingDown className="h-6 w-6 text-debt" />
+            </div>
+          </div>
+        </div>
+
+        {/* Admin: Cost Entry */}
+        {isAdmin && <AdminCostEntry />}
+
+        {/* Admin: Debt Settlement */}
+        {isAdmin && <DebtSettlement userDebts={mockUserDebts} />}
+
+        {/* Debt Breakdown */}
+        {!isAdmin && (
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Debt Breakdown
+            </h3>
+            {displayedDebts.map((entry) => (
+              <BreakdownCard key={entry.id} entry={entry} />
+            ))}
+            {pendingDebts.length > 5 && (
+              <button
+                onClick={() => setShowAllDebts(!showAllDebts)}
+                className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-primary transition-colors hover:bg-accent"
+              >
+                {showAllDebts ? (
+                  <>Show Less <ChevronUp className="h-4 w-4" /></>
+                ) : (
+                  <>Load More ({pendingDebts.length - 5} more) <ChevronDown className="h-4 w-4" /></>
+                )}
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Recent Trips */}
+        {!isAdmin && <RecentTrips trips={mockTrips} />}
+
+        {/* Zero debt state */}
+        {!isAdmin && pendingDebts.length === 0 && (
+          <div className="animate-scale-in rounded-2xl border border-settled/20 bg-card p-6 text-center">
+            <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-settled/10">
+              <AlertCircle className="h-8 w-8 text-settled" />
+            </div>
+            <p className="font-semibold text-settled">No Pending Debts!</p>
+            <p className="mt-1 text-sm text-muted-foreground">You're all settled up 🎉</p>
+          </div>
+        )}
+      </main>
+
+      <BottomNav />
     </div>
   );
 };
 
-export default Index;
+export default Dashboard;
