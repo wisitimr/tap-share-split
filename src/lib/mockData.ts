@@ -131,6 +131,23 @@ export const mockDebts: DebtEntry[] = [
     perPersonGas: 40, perPersonParking: 12, perPersonTotal: 52, status: "pending",
   },
   {
+    id: "d4b", date: "2026-03-08", carName: "Nissan Urvan", licensePlate: "ขข-5678",
+    gasCost: 180, parkingCost: 40, headcount: 3,
+    riders: ["Somchai", "Lek", "Sombat (Driver)"],
+    perPersonGas: 60, perPersonParking: 13.33, perPersonTotal: 73.33, status: "pending",
+  },
+  {
+    id: "d4c", date: "2026-03-06", carName: "Toyota HiAce", licensePlate: "กก-1234",
+    gasCost: 200, parkingCost: 0, headcount: 4,
+    riders: ["Somchai", "Somying", "Noi", "Sombat (Driver)"],
+    perPersonGas: 50, perPersonParking: 0, perPersonTotal: 50, status: "pending",
+  },
+  {
+    id: "d4d", date: "2026-03-04", carName: "Nissan Urvan", licensePlate: "ขข-5678",
+    gasCost: 180, parkingCost: 60, headcount: 5,
+    riders: ["Somchai", "Somying", "Somsri", "Noi", "Sombat (Driver)"],
+    perPersonGas: 36, perPersonParking: 12, perPersonTotal: 48, status: "pending",
+  {
     id: "d5", date: "2026-03-05", carName: "Toyota HiAce", licensePlate: "กก-1234",
     gasCost: 200, parkingCost: 50, headcount: 5,
     riders: ["Somchai", "Somying", "Somsri", "Noi", "Sombat (Driver)"],
