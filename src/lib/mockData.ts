@@ -154,7 +154,7 @@ export const mockDebts: DebtEntry[] = [
     id: "d6", date: "2026-03-03", carName: "Nissan Urvan", licensePlate: "ขข-5678",
     gasCost: 180, parkingCost: 40, headcount: 4,
     riders: ["Somchai", "Somying", "Lek", "Sombat (Driver)"],
-    perPersonGas: 45, perPersonParking: 10, perPersonTotal: 55, status: "settled",
+    perPersonGas: 45, perPersonParking: 10, perPersonTotal: 55, status: "settled", tripNumber: 1,
   },
   {
     id: "d7", date: "2026-03-07", carName: "Toyota HiAce", licensePlate: "กก-1234",
