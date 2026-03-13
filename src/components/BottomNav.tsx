@@ -1,10 +1,11 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { Home, Clock, Settings } from "lucide-react";
-import { mockCurrentUser } from "@/lib/mockData";
+import { useRole } from "@/context/RoleContext";
 
 const BottomNav = () => {
   const location = useLocation();
-  const isAdmin = mockCurrentUser.role === "ADMIN";
+  const { role } = useRole();
+  const isAdmin = role === "ADMIN";
 
   const navItems = [
     { to: "/", icon: Home, label: "Dashboard" },

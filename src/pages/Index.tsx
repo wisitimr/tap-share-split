@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { TrendingDown, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { TrendingDown, AlertCircle, ChevronDown, ChevronUp, ArrowLeftRight } from "lucide-react";
 import BreakdownCard from "@/components/BreakdownCard";
 import RecentTrips from "@/components/RecentTrips";
 import AdminCostEntry from "@/components/AdminCostEntry";
 import DebtSettlement from "@/components/DebtSettlement";
 import BottomNav from "@/components/BottomNav";
+import { useRole } from "@/context/RoleContext";
 import {
   mockDebts,
   mockTrips,
@@ -14,7 +15,8 @@ import {
 } from "@/lib/mockData";
 
 const Dashboard = () => {
-  const isAdmin = mockCurrentUser.role === "ADMIN";
+  const { role, toggleRole } = useRole();
+  const isAdmin = role === "ADMIN";
   const [showAllDebts, setShowAllDebts] = useState(false);
 
   const pendingDebts = mockDebts.filter((d) => d.status === "pending");
@@ -32,6 +34,13 @@ const Dashboard = () => {
               สวัสดี, {mockCurrentUser.name}
             </p>
           </div>
+          <button
+            onClick={toggleRole}
+            className="flex items-center gap-1.5 rounded-lg border border-border bg-muted px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent"
+          >
+            <ArrowLeftRight className="h-3.5 w-3.5" />
+            {role}
+          </button>
         </div>
       </header>
 
