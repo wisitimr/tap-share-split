@@ -85,7 +85,15 @@ const Dashboard = () => {
               onClick={() => setVisibleCount((c) => c + 5)}
               className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-primary transition-colors hover:bg-accent"
             >
-              Load More ({pendingDebts.length - visibleCount} more) <ChevronDown className="h-4 w-4" />
+              Load More <ChevronDown className="h-4 w-4" />
+            </button>
+          )}
+          {visibleCount > 5 && (
+            <button
+              onClick={() => setVisibleCount(5)}
+              className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent"
+            >
+              Show Less <ChevronUp className="h-4 w-4" />
             </button>
           )}
         </div>
