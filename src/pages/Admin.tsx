@@ -187,7 +187,9 @@ const CarsTab = () => {
         <div className="rounded-xl border-2 border-primary/30 bg-card p-4 space-y-3 animate-fade-in">
           <h3 className="text-sm font-semibold text-foreground">Add New Car</h3>
           <div>
-            <label className="mb-1 block text-xs font-medium text-muted-foreground">Car Name</label>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Car Name <span className="text-debt">*</span>
+            </label>
             <input
               type="text"
               value={newCarName}
@@ -198,7 +200,9 @@ const CarsTab = () => {
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-muted-foreground">License Plate</label>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              License Plate <span className="text-xs font-normal text-muted-foreground/60">(optional)</span>
+            </label>
             <input
               type="text"
               value={newCarPlate}
@@ -208,7 +212,9 @@ const CarsTab = () => {
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-muted-foreground">Default Gas Cost (฿)</label>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Default Gas Cost (฿) <span className="text-debt">*</span>
+            </label>
             <input
               type="number"
               value={newCarGas}
