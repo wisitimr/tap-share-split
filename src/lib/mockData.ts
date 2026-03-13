@@ -50,7 +50,7 @@ export interface DebtEntry {
   perPersonGas: number;
   perPersonParking: number;
   perPersonTotal: number;
-  status: "pending" | "settled" | "partial";
+  status: "pending" | "settled";
 }
 
 export interface Payment {
