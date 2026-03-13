@@ -31,7 +31,6 @@ const BreakdownCard = ({ entry, showStatus = true }: BreakdownCardProps) => {
               >
                 {entry.status === "settled" ? "Settled" : "Pending"}
               </span>
-              </span>
             )}
           </div>
           <p className="mt-0.5 font-semibold text-foreground">
