@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TrendingDown, AlertCircle, ChevronDown, ChevronUp, Bus } from "lucide-react";
 import BreakdownCard from "@/components/BreakdownCard";
 import RecentTrips from "@/components/RecentTrips";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import BottomNav from "@/components/BottomNav";
 import { useRole } from "@/context/RoleContext";
 import {
@@ -15,6 +16,8 @@ const Dashboard = () => {
   const { role, toggleRole } = useRole();
   const isAdmin = role === "ADMIN";
   const [visibleCount, setVisibleCount] = useState(5);
+  const [debtOpen, setDebtOpen] = useState(true);
+  const [tripsOpen, setTripsOpen] = useState(true);
 
   const pendingDebts = mockDebts.filter((d) => d.status === "pending");
   const settledDebts = mockDebts.filter((d) => d.status === "settled");
@@ -74,33 +77,48 @@ const Dashboard = () => {
           </div>
         </div>
         {/* Debt Breakdown */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-            Debt Breakdown
-          </h3>
-          {displayedDebts.map((entry) => (
-            <BreakdownCard key={entry.id} entry={entry} />
-          ))}
-          {hasMore && (
-            <button
-              onClick={() => setVisibleCount((c) => c + 5)}
-              className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-primary transition-colors hover:bg-accent"
-            >
-              Load More <ChevronDown className="h-4 w-4" />
-            </button>
-          )}
-          {visibleCount > 5 && (
-            <button
-              onClick={() => setVisibleCount(5)}
-              className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent"
-            >
-              Show Less <ChevronUp className="h-4 w-4" />
-            </button>
-          )}
-        </div>
+        <Collapsible open={debtOpen} onOpenChange={setDebtOpen}>
+          <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Debt Breakdown
+            </h3>
+            {debtOpen ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
+          </CollapsibleTrigger>
+          <CollapsibleContent className="space-y-2 pt-2">
+            {displayedDebts.map((entry) => (
+              <BreakdownCard key={entry.id} entry={entry} />
+            ))}
+            {hasMore && (
+              <button
+                onClick={() => setVisibleCount((c) => c + 5)}
+                className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-primary transition-colors hover:bg-accent"
+              >
+                Load More <ChevronDown className="h-4 w-4" />
+              </button>
+            )}
+            {visibleCount > 5 && (
+              <button
+                onClick={() => setVisibleCount(5)}
+                className="flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent"
+              >
+                Show Less <ChevronUp className="h-4 w-4" />
+              </button>
+            )}
+          </CollapsibleContent>
+        </Collapsible>
 
         {/* Recent Trips */}
-        <RecentTrips trips={mockTrips} />
+        <Collapsible open={tripsOpen} onOpenChange={setTripsOpen}>
+          <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Recent Trips
+            </h3>
+            {tripsOpen ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
+          </CollapsibleTrigger>
+          <CollapsibleContent className="pt-2">
+            <RecentTrips trips={mockTrips} />
+          </CollapsibleContent>
+        </Collapsible>
 
         {/* Zero debt state */}
         {pendingDebts.length === 0 && (
