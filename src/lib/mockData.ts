@@ -165,8 +165,10 @@ export const mockDebts: DebtEntry[] = [
 
 export const mockTrips: Trip[] = [
   { id: "t1", userId: "u1", carId: "c1", date: "2026-03-13", tappedAt: "2026-03-13T07:25:00", tripNumber: 1 },
+  { id: "t1b", userId: "u1", carId: "c1", date: "2026-03-13", tappedAt: "2026-03-13T17:40:00", tripNumber: 2 },
   { id: "t2", userId: "u1", carId: "c1", date: "2026-03-12", tappedAt: "2026-03-12T07:32:00", tripNumber: 1 },
   { id: "t3", userId: "u1", carId: "c1", date: "2026-03-11", tappedAt: "2026-03-11T07:28:00", tripNumber: 1 },
+  { id: "t3b", userId: "u1", carId: "c2", date: "2026-03-11", tappedAt: "2026-03-11T18:05:00", tripNumber: 2 },
   { id: "t4", userId: "u1", carId: "c1", date: "2026-03-10", tappedAt: "2026-03-10T07:35:00", tripNumber: 1 },
   { id: "t5", userId: "u1", carId: "c2", date: "2026-03-09", tappedAt: "2026-03-09T07:22:00", tripNumber: 1 },
   { id: "t6", userId: "u1", carId: "c1", date: "2026-03-07", tappedAt: "2026-03-07T07:30:00", tripNumber: 1 },
