@@ -221,7 +221,7 @@ const CarsTab = () => {
               size="touch"
               className="flex-1"
               onClick={handleAddCar}
-              disabled={!newCarName || !newCarPlate}
+              disabled={!newCarName}
             >
               <Plus className="h-4 w-4" /> Add
             </Button>
