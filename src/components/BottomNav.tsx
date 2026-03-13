@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, Clock, Settings } from "lucide-react";
+import { Home, Clock, Settings, ClipboardList } from "lucide-react";
 import { useRole } from "@/context/RoleContext";
 
 const BottomNav = () => {
@@ -9,6 +9,7 @@ const BottomNav = () => {
 
   const navItems = [
     { to: "/", icon: Home, label: "Dashboard" },
+    ...(isAdmin ? [{ to: "/manage", icon: ClipboardList, label: "Manage" }] : []),
     { to: "/history", icon: Clock, label: "History" },
     ...(isAdmin ? [{ to: "/admin", icon: Settings, label: "Admin" }] : []),
   ];

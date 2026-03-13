@@ -25,6 +25,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/history" element={<History />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/manage" element={<ManageTrips />} />
             <Route path="/tap/:carId" element={<TapPage />} />
             <Route path="/pending" element={<PendingApproval />} />
             <Route path="*" element={<NotFound />} />

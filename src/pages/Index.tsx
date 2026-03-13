@@ -97,11 +97,6 @@ const Dashboard = () => {
         {/* Recent Trips */}
         <RecentTrips trips={mockTrips} />
 
-        {/* Admin: New Trip (Cost Entry) */}
-        {isAdmin && <AdminCostEntry />}
-
-        {/* Admin: Debt Settlement */}
-        {isAdmin && <DebtSettlement userDebts={mockUserDebts} />}
 
         {/* Zero debt state */}
         {pendingDebts.length === 0 && (
