@@ -33,20 +33,20 @@ const Dashboard = () => {
               <Bus className="h-6 w-6" />
               <h1 className="text-lg font-bold">RodBus</h1>
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={toggleRole}
-                className="rounded-lg bg-white/10 px-2 py-1 text-xs font-medium text-white/80 transition-colors hover:bg-white/20"
-              >
-                {role}
-              </button>
-              <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-white/15 text-sm font-bold ring-2 ring-white/20">
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-white/15 text-sm font-bold ring-2 ring-white/20">
                 {mockCurrentUser.image ? (
                   <img src={mockCurrentUser.image} alt={mockCurrentUser.name} className="h-full w-full object-cover" />
                 ) : (
                   <span className="text-white">{mockCurrentUser.name[0]}</span>
                 )}
               </div>
+              <button
+                onClick={toggleRole}
+                className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/70 transition-colors hover:bg-white/20"
+              >
+                {role}
+              </button>
             </div>
           </div>
           <p className="mt-2 text-sm text-white/60">Welcome, {mockCurrentUser.name}</p>
