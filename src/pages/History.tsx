@@ -179,7 +179,7 @@ const SummaryTab = () => {
               </div>
               {isAdmin && (
                 <p className="mt-1 text-xs text-muted-foreground">
-                  All users (gross): <span className="font-bold text-foreground">{formatBaht(month.grossTotal)}</span>
+                  Grand Total: <span className="font-bold text-foreground">{formatBaht(month.grossTotal)}</span>
                 </p>
               )}
             </div>
