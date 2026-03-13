@@ -314,10 +314,10 @@ const QRTab = () => {
         <div key={car.id} className="rounded-2xl border border-border bg-card p-5 text-center animate-fade-in">
           <p className="font-semibold text-foreground">{car.name}</p>
           <p className="text-sm text-muted-foreground">{car.licensePlate}</p>
-          <div className="mx-auto my-4 flex h-48 w-48 items-center justify-center rounded-xl border-2 border-dashed border-border bg-muted">
-            <QrCode className="h-24 w-24 text-muted-foreground/50" />
+          <div className="mx-auto my-4 flex h-56 w-56 items-center justify-center rounded-xl border-2 border-dashed border-border bg-muted">
+            <QrCode className="h-32 w-32 text-muted-foreground/50" />
           </div>
-          <div className="mb-3 inline-flex items-center gap-1.5 rounded-lg bg-muted px-3 py-2">
+          <div className="inline-flex items-center gap-1.5 rounded-lg bg-muted px-3 py-2">
             <p className="text-xs text-muted-foreground select-all">
               https://rodbus.app/tap/{car.id}
             </p>
@@ -333,9 +333,6 @@ const QRTab = () => {
               )}
             </button>
           </div>
-          <Button variant="outline" size="touch" className="w-full">
-            <Download className="h-4 w-4" /> Download QR
-          </Button>
         </div>
       ))}
     </div>
