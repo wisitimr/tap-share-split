@@ -24,28 +24,28 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen pb-24">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-gradient-to-b from-primary to-primary/90 text-primary-foreground">
+      <header className="sticky top-0 z-40 bg-gradient-to-b from-[hsl(220,20%,14%)] to-[hsl(220,18%,18%)] text-white">
         <div className="mx-auto max-w-lg px-4 pt-4 pb-5">
           {/* Top bar */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-primary-foreground/20 text-sm font-bold ring-2 ring-primary-foreground/30">
+              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-white/15 text-sm font-bold ring-2 ring-white/20">
                 {mockCurrentUser.image ? (
                   <img src={mockCurrentUser.image} alt={mockCurrentUser.name} className="h-full w-full object-cover" />
                 ) : (
-                  <span className="text-primary-foreground">{mockCurrentUser.name[0]}</span>
+                  <span className="text-white">{mockCurrentUser.name[0]}</span>
                 )}
               </div>
               <div>
                 <h1 className="text-lg font-bold">RodBus</h1>
-                <p className="text-xs text-primary-foreground/70">
+                <p className="text-xs text-white/60">
                   สวัสดี, {mockCurrentUser.name}
                 </p>
               </div>
             </div>
             <button
               onClick={toggleRole}
-              className="flex items-center gap-1.5 rounded-lg bg-primary-foreground/15 px-2.5 py-1.5 text-xs font-medium text-primary-foreground/90 backdrop-blur-sm transition-colors hover:bg-primary-foreground/25"
+              className="flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white/80 transition-colors hover:bg-white/20"
             >
               <ArrowLeftRight className="h-3.5 w-3.5" />
               {role}
@@ -53,13 +53,13 @@ const Dashboard = () => {
           </div>
 
           {/* Debt hero */}
-          <div className="mt-4 rounded-2xl bg-primary-foreground/10 p-4 backdrop-blur-sm">
-            <p className="text-xs font-medium text-primary-foreground/70">Your Pending Debt</p>
+          <div className="mt-4 rounded-2xl bg-white/8 p-4">
+            <p className="text-xs font-medium text-white/60">Your Pending Debt</p>
             <div className="mt-1 flex items-end justify-between">
-              <p className="text-3xl font-black tracking-tight">
+              <p className="text-3xl font-black tracking-tight text-debt">
                 {formatBaht(totalDebt)}
               </p>
-              <div className="flex items-center gap-1.5 rounded-full bg-primary-foreground/10 px-2.5 py-1 text-xs font-medium text-primary-foreground/80">
+              <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium text-white/70">
                 <TrendingDown className="h-3.5 w-3.5" />
                 {pendingDebts.length} pending
               </div>
