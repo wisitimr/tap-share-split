@@ -168,17 +168,7 @@ const SummaryTab = () => {
           {expanded === month.key && (
             <div className="mt-3 space-y-2 animate-fade-in">
               {mockDebts.map((entry) => (
-                <div key={entry.id} className="space-y-1">
-                  <BreakdownCard entry={entry} />
-                  {/* Rider names with truncation */}
-                  <div className="px-2">
-                    {entry.riders.map((rider, i) => (
-                      <span key={i} className="mr-1 inline-block max-w-[120px] truncate align-bottom text-xs text-muted-foreground" title={rider}>
-                        {rider}{i < entry.riders.length - 1 ? "," : ""}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <BreakdownCard key={entry.id} entry={entry} />
               ))}
             </div>
           )}
