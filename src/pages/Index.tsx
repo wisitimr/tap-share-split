@@ -58,14 +58,6 @@ const Dashboard = () => {
         <div className="animate-scale-in rounded-2xl border border-debt/20 bg-card p-5 shadow-lg shadow-debt/5">
           <div className="flex items-start justify-between">
             <div>
-              {isAdmin && (
-                <div className="mb-2">
-                  <p className="text-xs font-medium text-muted-foreground">Grand Total</p>
-                  <p className="text-2xl font-black tracking-tight text-foreground">
-                    {formatBaht(grandTotal)}
-                  </p>
-                </div>
-              )}
               <p className="text-sm font-medium text-muted-foreground">Your Pending Debt</p>
               <p className="mt-1 text-4xl font-black tracking-tight text-debt">
                 {formatBaht(totalDebt)}
