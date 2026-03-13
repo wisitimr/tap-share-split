@@ -27,29 +27,31 @@ const Dashboard = () => {
     <div className="min-h-screen pb-24">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur-md">
-        <div className="mx-auto max-w-lg px-4 pt-4 pb-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Bus className="h-6 w-6 text-primary" />
-              <h1 className="text-lg font-bold text-foreground">RodBus</h1>
+        <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
+              <Bus className="h-5 w-5 text-primary" />
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={toggleRole}
-                className="rounded-lg border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent"
-              >
-                {role}
-              </button>
-              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-primary/10 text-sm font-bold text-primary ring-2 ring-primary/20">
-                {mockCurrentUser.image ? (
-                  <img src={mockCurrentUser.image} alt={mockCurrentUser.name} className="h-full w-full object-cover" />
-                ) : (
-                  mockCurrentUser.name[0]
-                )}
-              </div>
+            <div>
+              <h1 className="text-lg font-bold text-foreground">RodBus</h1>
+              <p className="text-xs text-muted-foreground">Welcome, {mockCurrentUser.name}</p>
             </div>
           </div>
-          <p className="mt-2 text-sm text-muted-foreground">Welcome, {mockCurrentUser.name}</p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleRole}
+              className="rounded-lg border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent"
+            >
+              {role}
+            </button>
+            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-primary/10 text-sm font-bold text-primary ring-2 ring-primary/20">
+              {mockCurrentUser.image ? (
+                <img src={mockCurrentUser.image} alt={mockCurrentUser.name} className="h-full w-full object-cover" />
+              ) : (
+                mockCurrentUser.name[0]
+              )}
+            </div>
+          </div>
         </div>
       </header>
 
