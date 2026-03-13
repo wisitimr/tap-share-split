@@ -15,6 +15,7 @@ import {
   Trash2,
   Plus,
   Download,
+  Fuel,
   Copy,
   Check,
   Pencil,
