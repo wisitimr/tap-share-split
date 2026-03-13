@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TrendingDown, AlertCircle, ChevronDown, ChevronUp, ArrowLeftRight, Wallet, Receipt } from "lucide-react";
+import { TrendingDown, AlertCircle, ChevronDown, ChevronUp, Bus } from "lucide-react";
 import BreakdownCard from "@/components/BreakdownCard";
 import RecentTrips from "@/components/RecentTrips";
 import BottomNav from "@/components/BottomNav";
