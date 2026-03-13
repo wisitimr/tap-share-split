@@ -70,6 +70,7 @@ const Dashboard = () => {
         </div>
       </header>
 
+      <main className="mx-auto max-w-lg space-y-4 p-4">
         {/* Debt Breakdown */}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
