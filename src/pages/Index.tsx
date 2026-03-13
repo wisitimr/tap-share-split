@@ -25,8 +25,7 @@ const Dashboard = () => {
     <div className="min-h-screen pb-24">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-gradient-to-b from-[hsl(220,20%,14%)] to-[hsl(220,18%,18%)] text-white">
-        <div className="mx-auto max-w-lg px-4 pt-4 pb-5">
-          {/* Top bar */}
+        <div className="mx-auto max-w-lg px-4 pt-4 pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-white/15 text-sm font-bold ring-2 ring-white/20">
@@ -51,24 +50,27 @@ const Dashboard = () => {
               {role}
             </button>
           </div>
-
-          {/* Debt hero */}
-          <div className="mt-4 rounded-2xl bg-white/8 p-4">
-            <p className="text-xs font-medium text-white/60">Your Pending Debt</p>
-            <div className="mt-1 flex items-end justify-between">
-              <p className="text-3xl font-black tracking-tight text-debt">
-                {formatBaht(totalDebt)}
-              </p>
-              <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium text-white/70">
-                <TrendingDown className="h-3.5 w-3.5" />
-                {pendingDebts.length} pending
-              </div>
-            </div>
-          </div>
         </div>
       </header>
 
       <main className="mx-auto max-w-lg space-y-4 p-4">
+        {/* Total Debt Card */}
+        <div className="animate-scale-in rounded-2xl border border-debt/20 bg-card p-5 shadow-lg shadow-debt/5">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">Your Pending Debt</p>
+              <p className="mt-1 text-4xl font-black tracking-tight text-debt">
+                {formatBaht(totalDebt)}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {pendingDebts.length} pending {pendingDebts.length === 1 ? "item" : "items"}
+              </p>
+            </div>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-debt/10">
+              <TrendingDown className="h-6 w-6 text-debt" />
+            </div>
+          </div>
+        </div>
         {/* Debt Breakdown */}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
