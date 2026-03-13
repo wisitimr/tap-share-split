@@ -51,6 +51,7 @@ export interface DebtEntry {
   perPersonParking: number;
   perPersonTotal: number;
   status: "pending" | "settled";
+  tripNumber?: number;
 }
 
 export interface Payment {
