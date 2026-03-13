@@ -42,8 +42,14 @@ const Admin = () => {
   return (
     <div className="min-h-screen pb-24">
       <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur-md">
-        <div className="mx-auto max-w-lg px-4 pt-3">
-          <h1 className="text-lg font-bold text-foreground">Admin Panel</h1>
+        <div className="mx-auto flex max-w-lg items-center gap-2 px-4 py-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
+            <Settings className="h-5 w-5 text-primary" />
+          </div>
+          <div>
+            <h1 className="text-lg font-bold text-foreground">Settings</h1>
+            <p className="text-xs text-muted-foreground">Users, cars & QR codes</p>
+          </div>
         </div>
         <div className="mx-auto flex max-w-lg gap-0 px-4 pt-2">
           {tabs.map((t) => (
