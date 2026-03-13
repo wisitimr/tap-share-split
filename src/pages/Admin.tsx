@@ -246,49 +246,44 @@ const CarsTab = () => {
               <Trash2 className="h-4 w-4" />
             </button>
           </div>
-          <div className="mt-3 rounded-xl border border-border bg-muted/30 p-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Fuel className="h-3.5 w-3.5" />
-                <span>Default gas cost</span>
-              </div>
-              {editingGas !== car.id && (
-                <button
-                  onClick={() => { setEditingGas(car.id); setGasValue(car.defaultGasCost.toString()); }}
-                  className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                  title="Edit gas cost"
-                >
-                  <Pencil className="h-3.5 w-3.5" />
-                </button>
-              )}
-            </div>
+          <div className="mt-2 flex items-center gap-2 rounded-lg bg-muted/40 px-2.5 py-2 text-xs text-muted-foreground">
+            <Fuel className="h-3 w-3 shrink-0" />
+            <span>Gas:</span>
             {editingGas === car.id ? (
-              <div className="mt-2 flex items-center gap-2">
-                <div className="relative flex-1">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium text-muted-foreground">฿</span>
+              <div className="flex flex-1 items-center gap-1.5">
+                <div className="relative">
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">฿</span>
                   <input
                     type="number"
                     value={gasValue}
                     onChange={(e) => setGasValue(e.target.value)}
-                    className="w-full rounded-xl border border-primary/30 bg-background py-2 pl-8 pr-3 text-sm font-bold text-foreground ring-2 ring-primary/10 focus:outline-none focus:ring-primary/30"
+                    className="w-20 rounded-lg border border-primary/30 bg-background py-1 pl-6 pr-2 text-xs font-bold text-foreground focus:outline-none focus:ring-1 focus:ring-primary/30"
                     autoFocus
                   />
                 </div>
                 <button
                   onClick={() => setEditingGas(null)}
-                  className="flex h-9 items-center gap-1 rounded-xl bg-primary px-3 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                  className="rounded-md bg-primary px-2 py-1 text-xs font-semibold text-primary-foreground"
                 >
-                  <Check className="h-3.5 w-3.5" /> Save
+                  <Check className="h-3 w-3" />
                 </button>
                 <button
                   onClick={() => setEditingGas(null)}
-                  className="flex h-9 items-center rounded-xl border border-border px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent"
+                  className="rounded-md px-1.5 py-1 text-xs text-muted-foreground hover:text-foreground"
                 >
-                  Cancel
+                  ✕
                 </button>
               </div>
             ) : (
-              <p className="mt-1 text-lg font-bold text-foreground">{formatBaht(car.defaultGasCost)}</p>
+              <>
+                <span className="font-bold text-foreground">{formatBaht(car.defaultGasCost)}</span>
+                <button
+                  onClick={() => { setEditingGas(car.id); setGasValue(car.defaultGasCost.toString()); }}
+                  className="ml-auto rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                >
+                  <Pencil className="h-3 w-3" />
+                </button>
+              </>
             )}
           </div>
         </div>
