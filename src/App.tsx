@@ -7,6 +7,7 @@ import { RoleProvider } from "@/context/RoleContext";
 import Index from "./pages/Index.tsx";
 import History from "./pages/History.tsx";
 import Admin from "./pages/Admin.tsx";
+import ManageTrips from "./pages/ManageTrips.tsx";
 import TapPage from "./pages/TapPage.tsx";
 import PendingApproval from "./pages/PendingApproval.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/history" element={<History />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/manage" element={<ManageTrips />} />
             <Route path="/tap/:carId" element={<TapPage />} />
             <Route path="/pending" element={<PendingApproval />} />
             <Route path="*" element={<NotFound />} />
