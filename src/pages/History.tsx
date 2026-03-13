@@ -178,9 +178,6 @@ const SummaryTab = () => {
           >
             <div className="text-left">
               <p className="font-semibold text-foreground">{month.label}</p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Your total: <span className="font-bold text-foreground">{formatBaht(month.total)}</span>
-              </p>
               <div className="mt-0.5 flex gap-3 text-xs">
                 <span className="text-debt">Pending: {formatBaht(month.pending)}</span>
                 <span className="text-settled">Settled: {formatBaht(month.settled)}</span>
