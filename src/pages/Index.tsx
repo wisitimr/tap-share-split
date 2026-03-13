@@ -19,6 +19,7 @@ const Dashboard = () => {
   const pendingDebts = mockDebts.filter((d) => d.status === "pending");
   const settledDebts = mockDebts.filter((d) => d.status === "settled");
   const totalDebt = pendingDebts.reduce((sum, d) => sum + d.perPersonTotal, 0);
+  const grandTotal = pendingDebts.reduce((sum, d) => sum + d.gasCost + d.parkingCost, 0);
   const displayedDebts = pendingDebts.slice(0, visibleCount);
   const hasMore = visibleCount < pendingDebts.length;
 
@@ -57,6 +58,14 @@ const Dashboard = () => {
         <div className="animate-scale-in rounded-2xl border border-debt/20 bg-card p-5 shadow-lg shadow-debt/5">
           <div className="flex items-start justify-between">
             <div>
+              {isAdmin && (
+                <div className="mb-2">
+                  <p className="text-xs font-medium text-muted-foreground">Grand Total (All Users)</p>
+                  <p className="text-2xl font-black tracking-tight text-foreground">
+                    {formatBaht(grandTotal)}
+                  </p>
+                </div>
+              )}
               <p className="text-sm font-medium text-muted-foreground">Your Pending Debt</p>
               <p className="mt-1 text-4xl font-black tracking-tight text-debt">
                 {formatBaht(totalDebt)}
