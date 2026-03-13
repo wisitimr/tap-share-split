@@ -62,7 +62,8 @@ const History = () => {
 };
 
 const TripsTab = () => {
-  const isAdmin = mockCurrentUser.role === "ADMIN";
+  const { role } = useRole();
+  const isAdmin = role === "ADMIN";
   
   // Admin sees all trips, user sees only their own
   const trips = isAdmin ? mockTrips : mockTrips.filter(t => t.userId === mockCurrentUser.id);
