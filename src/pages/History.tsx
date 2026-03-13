@@ -148,7 +148,11 @@ const PaymentsTab = () => (
 const SummaryTab = () => {
   const [expanded, setExpanded] = useState<string | null>(null);
 
-  const months = [{ key: "2026-03", label: "March 2026 (B.E. 2569)", total: 3200, pending: 1500 }];
+  const totalAll = mockDebts.reduce((sum, d) => sum + d.perPersonTotal, 0);
+  const pendingTotal = mockDebts.filter(d => d.status === "pending").reduce((sum, d) => sum + d.perPersonTotal, 0);
+  const settledTotal = mockDebts.filter(d => d.status === "settled").reduce((sum, d) => sum + d.perPersonTotal, 0);
+
+  const months = [{ key: "2026-03", label: "March 2026", total: totalAll, pending: pendingTotal, settled: settledTotal }];
 
   return (
     <div className="space-y-3">
@@ -158,11 +162,15 @@ const SummaryTab = () => {
             onClick={() => setExpanded(expanded === month.key ? null : month.key)}
             className="flex w-full items-center justify-between"
           >
-            <div>
+            <div className="text-left">
               <p className="font-semibold text-foreground">{month.label}</p>
-              <p className="text-xs text-muted-foreground">
-                Total: {formatBaht(month.total)} | Pending: <span className="text-debt font-medium">{formatBaht(month.pending)}</span>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Per person total: <span className="font-bold text-foreground">{formatBaht(month.total)}</span>
               </p>
+              <div className="mt-0.5 flex gap-3 text-xs">
+                <span className="text-debt">Pending: {formatBaht(month.pending)}</span>
+                <span className="text-settled">Settled: {formatBaht(month.settled)}</span>
+              </div>
             </div>
             {expanded === month.key ? (
               <ChevronUp className="h-4 w-4 text-muted-foreground" />
