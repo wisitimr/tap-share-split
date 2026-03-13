@@ -239,26 +239,25 @@ const QRTab = () => {
           <div className="mx-auto my-4 flex h-48 w-48 items-center justify-center rounded-xl border-2 border-dashed border-border bg-muted">
             <QrCode className="h-24 w-24 text-muted-foreground/50" />
           </div>
-          <p className="mb-3 text-xs text-muted-foreground break-all">
-            https://rodbus.app/tap/{car.id}
-          </p>
-          <div className="flex gap-2">
-            <Button variant="outline" size="touch" className="flex-1">
-              <Download className="h-4 w-4" /> Download
-            </Button>
-            <Button
-              variant="outline"
-              size="touch"
-              className="flex-1"
+          <div className="mb-3 flex items-center justify-center gap-1.5 rounded-lg bg-muted px-3 py-2">
+            <p className="text-xs text-muted-foreground break-all select-all">
+              https://rodbus.app/tap/{car.id}
+            </p>
+            <button
               onClick={() => handleCopy(car.id)}
+              className="shrink-0 rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              title="Copy link"
             >
               {copiedId === car.id ? (
-                <><Check className="h-4 w-4 text-settled" /> Copied!</>
+                <Check className="h-3.5 w-3.5 text-settled" />
               ) : (
-                <><Copy className="h-4 w-4" /> Copy Link</>
+                <Copy className="h-3.5 w-3.5" />
               )}
-            </Button>
+            </button>
           </div>
+          <Button variant="outline" size="touch" className="w-full">
+            <Download className="h-4 w-4" /> Download QR
+          </Button>
         </div>
       ))}
     </div>
