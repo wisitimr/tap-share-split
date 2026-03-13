@@ -157,22 +157,28 @@ export const mockDebts: DebtEntry[] = [
 ];
 
 export const mockTrips: Trip[] = [
-  { id: "t1", userId: "u1", carId: "c1", date: "2026-03-12", tappedAt: "2026-03-12T07:32:00", tripNumber: 1 },
-  { id: "t2", userId: "u1", carId: "c1", date: "2026-03-11", tappedAt: "2026-03-11T07:28:00", tripNumber: 1 },
-  { id: "t3", userId: "u1", carId: "c1", date: "2026-03-10", tappedAt: "2026-03-10T07:35:00", tripNumber: 1 },
-  { id: "t4", userId: "u1", carId: "c2", date: "2026-03-09", tappedAt: "2026-03-09T07:22:00", tripNumber: 1 },
-  { id: "t5", userId: "u1", carId: "c1", date: "2026-03-08", tappedAt: "2026-03-08T07:30:00", tripNumber: 1 },
+  { id: "t1", userId: "u1", carId: "c1", date: "2026-03-13", tappedAt: "2026-03-13T07:25:00", tripNumber: 1 },
+  { id: "t2", userId: "u1", carId: "c1", date: "2026-03-12", tappedAt: "2026-03-12T07:32:00", tripNumber: 1 },
+  { id: "t3", userId: "u1", carId: "c1", date: "2026-03-11", tappedAt: "2026-03-11T07:28:00", tripNumber: 1 },
+  { id: "t4", userId: "u1", carId: "c1", date: "2026-03-10", tappedAt: "2026-03-10T07:35:00", tripNumber: 1 },
+  { id: "t5", userId: "u1", carId: "c2", date: "2026-03-09", tappedAt: "2026-03-09T07:22:00", tripNumber: 1 },
+  { id: "t6", userId: "u1", carId: "c1", date: "2026-03-07", tappedAt: "2026-03-07T07:30:00", tripNumber: 1 },
+  { id: "t7", userId: "u1", carId: "c1", date: "2026-03-05", tappedAt: "2026-03-05T07:18:00", tripNumber: 1 },
+  { id: "t8", userId: "u1", carId: "c2", date: "2026-03-03", tappedAt: "2026-03-03T07:40:00", tripNumber: 1 },
 ];
 
 export const mockPayments: Payment[] = [
   { id: "p1", userId: "u1", userName: "Somchai", carName: "Toyota HiAce", amount: 100, note: "Cash payment", date: "2026-03-09" },
   { id: "p2", userId: "u2", userName: "Somying", carName: "Toyota HiAce", amount: 150, note: "Bank transfer", date: "2026-03-10" },
+  { id: "p3", userId: "u3", userName: "Somsri", carName: "Toyota HiAce", amount: 66.67, note: "PromptPay", date: "2026-03-08" },
+  { id: "p4", userId: "u1", userName: "Somchai", carName: "Nissan Urvan", amount: 55, note: "Cash", date: "2026-03-06" },
 ];
 
 export const mockUserDebts: UserDebt[] = [
-  { userId: "u1", userName: "Somchai", totalDebt: 195, entries: mockDebts.filter(d => d.status === "pending") },
-  { userId: "u2", userName: "Somying", totalDebt: 150, entries: mockDebts.filter(d => d.status === "pending").slice(0, 2) },
-  { userId: "u3", userName: "Somsri", totalDebt: 75, entries: mockDebts.filter(d => d.status === "pending").slice(0, 1) },
+  { userId: "u1", userName: "Somchai", totalDebt: 247, entries: mockDebts.filter(d => d.status === "pending") },
+  { userId: "u2", userName: "Somying", totalDebt: 202, entries: mockDebts.filter(d => d.status === "pending").slice(0, 3) },
+  { userId: "u3", userName: "Somsri", totalDebt: 127, entries: mockDebts.filter(d => d.status === "pending").slice(0, 2) },
+  { userId: "u5", userName: "Noi", totalDebt: 97, entries: mockDebts.filter(d => d.status === "pending").slice(2, 4) },
 ];
 
 export const mockAllUsers: User[] = [
