@@ -127,24 +127,19 @@ const TripsTab = () => {
 const PaymentsTab = () => (
   <div className="space-y-2">
     {mockPayments.map((payment) => (
-      <div key={payment.id} className="rounded-xl border border-border bg-card p-4 animate-fade-in">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-settled/10">
-            <CreditCard className="h-5 w-5 text-settled" />
+      <div key={payment.id} className="flex items-center gap-2.5 rounded-xl border border-border bg-card p-3 animate-fade-in">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-settled/10">
+          <CreditCard className="h-4 w-4 text-settled" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-semibold text-foreground truncate">{payment.userName}</p>
+            <span className="text-sm font-bold text-settled">{formatBaht(payment.amount)}</span>
           </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-foreground truncate">{payment.userName}</p>
-              <span className="text-lg font-bold text-settled">{formatBaht(payment.amount)}</span>
-            </div>
-            <p className="text-xs text-muted-foreground">{payment.carName}</p>
-            <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
-              <span>📅 Paid on {formatDateBE(payment.date)}</span>
-            </div>
-            {payment.note && (
-              <p className="mt-1 text-xs text-muted-foreground">📝 {payment.note}</p>
-            )}
-          </div>
+          <p className="text-[11px] text-muted-foreground">{payment.carName} · Paid {formatDateBE(payment.date)}</p>
+          {payment.note && (
+            <p className="text-[11px] text-muted-foreground truncate">📝 {payment.note}</p>
+          )}
         </div>
       </div>
     ))}
