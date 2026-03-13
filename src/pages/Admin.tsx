@@ -17,7 +17,7 @@ import {
   Download,
   Copy,
   Check,
-  Pencil,
+  UserRoundCog,
 } from "lucide-react";
 
 type AdminTab = "users" | "cars" | "qr";
