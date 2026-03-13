@@ -17,6 +17,7 @@ import {
   Download,
   Copy,
   Check,
+  Pencil,
   UserRoundCog,
 } from "lucide-react";
 
