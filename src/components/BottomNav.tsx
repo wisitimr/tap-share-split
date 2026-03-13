@@ -11,7 +11,7 @@ const BottomNav = () => {
     { to: "/", icon: Home, label: "Dashboard" },
     ...(isAdmin ? [{ to: "/manage", icon: ClipboardList, label: "Manage" }] : []),
     { to: "/history", icon: Clock, label: "History" },
-    ...(isAdmin ? [{ to: "/admin", icon: Settings, label: "Admin" }] : []),
+    ...(isAdmin ? [{ to: "/admin", icon: Settings, label: "Settings" }] : []),
   ];
 
   return (
