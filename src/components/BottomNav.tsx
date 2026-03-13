@@ -1,15 +1,16 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, Clock, Settings, Smartphone } from "lucide-react";
-
-const navItems = [
-  { to: "/", icon: Home, label: "Dashboard" },
-  { to: "/tap", icon: Smartphone, label: "Tap" },
-  { to: "/history", icon: Clock, label: "History" },
-  { to: "/admin", icon: Settings, label: "Admin" },
-];
+import { Home, Clock, Settings } from "lucide-react";
+import { mockCurrentUser } from "@/lib/mockData";
 
 const BottomNav = () => {
   const location = useLocation();
+  const isAdmin = mockCurrentUser.role === "ADMIN";
+
+  const navItems = [
+    { to: "/", icon: Home, label: "Dashboard" },
+    { to: "/history", icon: Clock, label: "History" },
+    ...(isAdmin ? [{ to: "/admin", icon: Settings, label: "Admin" }] : []),
+  ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card/95 backdrop-blur-md safe-area-bottom">

@@ -94,10 +94,10 @@ export const formatTimeBE = (dateStr: string): string => {
 
 // Mock data
 export const mockCurrentUser: User = {
-  id: "u1",
-  name: "Somchai",
-  email: "somchai@example.com",
-  role: "USER",
+  id: "u4",
+  name: "Sombat",
+  email: "sombat@example.com",
+  role: "ADMIN",
 };
 
 export const mockCars: Car[] = [

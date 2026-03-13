@@ -6,6 +6,8 @@ import {
   mockTrips,
   mockPayments,
   mockCars,
+  mockCurrentUser,
+  mockAllUsers,
   formatBaht,
   formatDateBE,
   formatTimeBE,
@@ -59,11 +61,21 @@ const History = () => {
 };
 
 const TripsTab = () => {
-  const grouped = mockTrips.reduce((acc, trip) => {
+  const isAdmin = mockCurrentUser.role === "ADMIN";
+  
+  // Admin sees all trips, user sees only their own
+  const trips = isAdmin ? mockTrips : mockTrips.filter(t => t.userId === mockCurrentUser.id);
+  
+  const grouped = trips.reduce((acc, trip) => {
     if (!acc[trip.date]) acc[trip.date] = [];
     acc[trip.date].push(trip);
     return acc;
   }, {} as Record<string, typeof mockTrips>);
+
+  const getUserName = (userId: string) => {
+    const user = mockAllUsers.find(u => u.id === userId);
+    return user?.name || "Unknown";
+  };
 
   return (
     <div className="space-y-4">
@@ -80,9 +92,12 @@ const TripsTab = () => {
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                     <Bus className="h-5 w-5 text-primary" />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-foreground">{car?.name || "Unknown"}</p>
-                    <p className="text-xs text-muted-foreground">{car?.licensePlate}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {car?.licensePlate}
+                      {isAdmin && <span className="ml-1">· {getUserName(trip.userId)}</span>}
+                    </p>
                   </div>
                   <div className="text-right">
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
@@ -108,9 +123,11 @@ const PaymentsTab = () => (
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-semibold text-foreground">{payment.carName}</p>
-            <p className="text-xs text-muted-foreground">{formatDateBE(payment.date)}</p>
+            <p className="text-xs text-muted-foreground">
+              Paid: {formatDateBE(payment.date)}
+            </p>
           </div>
-          <span className="text-lg font-bold text-success">{formatBaht(payment.amount)}</span>
+          <span className="text-lg font-bold text-settled">{formatBaht(payment.amount)}</span>
         </div>
         {payment.note && (
           <p className="mt-1 text-xs text-muted-foreground">📝 {payment.note}</p>
@@ -149,7 +166,17 @@ const SummaryTab = () => {
           {expanded === month.key && (
             <div className="mt-3 space-y-2 animate-fade-in">
               {mockDebts.map((entry) => (
-                <BreakdownCard key={entry.id} entry={entry} />
+                <div key={entry.id} className="space-y-1">
+                  <BreakdownCard entry={entry} />
+                  {/* Rider names with truncation */}
+                  <div className="px-2">
+                    {entry.riders.map((rider, i) => (
+                      <span key={i} className="mr-1 inline-block max-w-[120px] truncate align-bottom text-xs text-muted-foreground" title={rider}>
+                        {rider}{i < entry.riders.length - 1 ? "," : ""}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           )}
