@@ -166,12 +166,73 @@ const UsersTab = () => {
 const CarsTab = () => {
   const [editingGas, setEditingGas] = useState<string | null>(null);
   const [gasValue, setGasValue] = useState("");
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newCarName, setNewCarName] = useState("");
+  const [newCarPlate, setNewCarPlate] = useState("");
+  const [newCarGas, setNewCarGas] = useState("200");
+
+  const handleAddCar = () => {
+    // Mock: just close form
+    setShowAddForm(false);
+    setNewCarName("");
+    setNewCarPlate("");
+    setNewCarGas("200");
+  };
 
   return (
     <div className="space-y-3">
-      <Button size="touch" className="w-full">
-        <Plus className="h-4 w-4" /> Add New Car
-      </Button>
+      {showAddForm ? (
+        <div className="rounded-xl border-2 border-primary/30 bg-card p-4 space-y-3 animate-fade-in">
+          <h3 className="text-sm font-semibold text-foreground">Add New Car</h3>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">Car Name</label>
+            <input
+              type="text"
+              value={newCarName}
+              onChange={(e) => setNewCarName(e.target.value)}
+              placeholder="e.g. Toyota HiAce"
+              className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm"
+              autoFocus
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">License Plate</label>
+            <input
+              type="text"
+              value={newCarPlate}
+              onChange={(e) => setNewCarPlate(e.target.value)}
+              placeholder="e.g. กก-1234"
+              className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">Default Gas Cost (฿)</label>
+            <input
+              type="number"
+              value={newCarGas}
+              onChange={(e) => setNewCarGas(e.target.value)}
+              className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm"
+            />
+          </div>
+          <div className="flex gap-2">
+            <Button
+              size="touch"
+              className="flex-1"
+              onClick={handleAddCar}
+              disabled={!newCarName || !newCarPlate}
+            >
+              <Plus className="h-4 w-4" /> Add
+            </Button>
+            <Button size="touch" variant="outline" className="flex-1" onClick={() => setShowAddForm(false)}>
+              Cancel
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <Button size="touch" className="w-full" onClick={() => setShowAddForm(true)}>
+          <Plus className="h-4 w-4" /> Add New Car
+        </Button>
+      )}
       {mockCars.map((car) => (
         <div key={car.id} className="rounded-xl border border-border bg-card p-4 animate-fade-in">
           <div className="flex items-center justify-between">
