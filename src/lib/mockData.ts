@@ -178,9 +178,9 @@ export const mockTrips: Trip[] = [
 ];
 
 export const mockPayments: Payment[] = [
-  { id: "p1", userId: "u1", userName: "Somchai", carName: "Toyota HiAce", amount: 100, note: "Cash payment", date: "2026-03-09" },
-  { id: "p2", userId: "u2", userName: "Somying", carName: "Toyota HiAce", amount: 150, note: "Bank transfer", date: "2026-03-10" },
-  { id: "p3", userId: "u3", userName: "Somsri", carName: "Toyota HiAce", amount: 66.67, note: "PromptPay", date: "2026-03-08" },
+  { id: "p1", userId: "u1", userName: "Somchai", carName: "Toyota HiAce", amount: 100, note: "", date: "2026-03-09" },
+  { id: "p2", userId: "u2", userName: "Somying", carName: "Toyota HiAce", amount: 150, note: "", date: "2026-03-10" },
+  { id: "p3", userId: "u3", userName: "Somsri", carName: "Toyota HiAce", amount: 66.67, note: "", date: "2026-03-08" },
   { id: "p4", userId: "u1", userName: "Somchai", carName: "Nissan Urvan", amount: 55, note: "Cash", date: "2026-03-06" },
 ];
 
