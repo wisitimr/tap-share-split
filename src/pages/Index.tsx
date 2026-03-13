@@ -4,7 +4,6 @@ import BreakdownCard from "@/components/BreakdownCard";
 import RecentTrips from "@/components/RecentTrips";
 import BottomNav from "@/components/BottomNav";
 import { useRole } from "@/context/RoleContext";
-import { useRole } from "@/context/RoleContext";
 import {
   mockDebts,
   mockTrips,
