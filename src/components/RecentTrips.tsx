@@ -13,9 +13,6 @@ const RecentTrips = ({ trips }: RecentTripsProps) => {
 
   return (
     <div className="space-y-2">
-      <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-        Recent Trips
-      </h3>
       <div className="space-y-2">
         {trips.slice(0, 5).map((trip) => (
           <div
