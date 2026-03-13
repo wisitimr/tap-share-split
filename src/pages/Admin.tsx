@@ -14,7 +14,7 @@ import {
   ShieldCheck,
   Trash2,
   Plus,
-  Download,
+  Settings,
   Fuel,
   Copy,
   Check,
