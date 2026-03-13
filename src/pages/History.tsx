@@ -147,15 +147,29 @@ const PaymentsTab = () => (
 
 const SummaryTab = () => {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const { role } = useRole();
+  const isAdmin = role === "ADMIN";
 
   const totalAll = mockDebts.reduce((sum, d) => sum + d.perPersonTotal, 0);
   const pendingTotal = mockDebts.filter(d => d.status === "pending").reduce((sum, d) => sum + d.perPersonTotal, 0);
   const settledTotal = mockDebts.filter(d => d.status === "settled").reduce((sum, d) => sum + d.perPersonTotal, 0);
 
-  const months = [{ key: "2026-03", label: "March 2026", total: totalAll, pending: pendingTotal, settled: settledTotal }];
+  // Admin: total cost across all users (gas + parking before splitting)
+  const totalGrossAll = mockDebts.reduce((sum, d) => sum + d.gasCost + d.parkingCost, 0);
+  const pendingGrossAll = mockDebts.filter(d => d.status === "pending").reduce((sum, d) => sum + d.gasCost + d.parkingCost, 0);
+
+  const months = [{ key: "2026-03", label: "March 2026", total: totalAll, pending: pendingTotal, settled: settledTotal, grossTotal: totalGrossAll, grossPending: pendingGrossAll }];
 
   return (
     <div className="space-y-3">
+      {isAdmin && (
+        <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 animate-fade-in">
+          <p className="text-xs font-medium text-muted-foreground">Total All Users (Gross)</p>
+          <p className="mt-1 text-2xl font-black tracking-tight text-foreground">{formatBaht(months[0].grossTotal)}</p>
+          <p className="mt-0.5 text-xs text-debt">Pending collection: {formatBaht(months[0].grossPending)}</p>
+        </div>
+      )}
+
       {months.map((month) => (
         <div key={month.key} className="rounded-2xl border border-border bg-card p-4 shadow-sm">
           <button
@@ -165,7 +179,7 @@ const SummaryTab = () => {
             <div className="text-left">
               <p className="font-semibold text-foreground">{month.label}</p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Per person total: <span className="font-bold text-foreground">{formatBaht(month.total)}</span>
+                Your total: <span className="font-bold text-foreground">{formatBaht(month.total)}</span>
               </p>
               <div className="mt-0.5 flex gap-3 text-xs">
                 <span className="text-debt">Pending: {formatBaht(month.pending)}</span>
