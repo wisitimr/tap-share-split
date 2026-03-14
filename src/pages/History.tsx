@@ -178,10 +178,10 @@ const PaymentsTab = ({ viewMine }: { viewMine: boolean }) => {
   );
 };
 
-const SummaryTab = () => {
+const SummaryTab = ({ viewMine }: { viewMine: boolean }) => {
   const [expanded, setExpanded] = useState<string | null>(null);
   const { role } = useRole();
-  const isAdmin = role === "ADMIN";
+  const isAdmin = role === "ADMIN" && !viewMine;
 
   const totalAll = mockDebts.reduce((sum, d) => sum + d.perPersonTotal, 0);
   const pendingTotal = mockDebts.filter(d => d.status === "pending").reduce((sum, d) => sum + d.perPersonTotal, 0);
