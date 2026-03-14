@@ -16,9 +16,13 @@ import {
 import { Bus, Clock, CreditCard, BarChart3, ChevronDown, ChevronUp } from "lucide-react";
 
 type Tab = "trips" | "payments" | "summary";
+type ViewMode = "all" | "mine";
 
 const History = () => {
   const [tab, setTab] = useState<Tab>("trips");
+  const { role } = useRole();
+  const isAdmin = role === "ADMIN";
+  const [viewMode, setViewMode] = useState<ViewMode>("all");
 
   const tabs: { key: Tab; label: string; icon: typeof Bus }[] = [
     { key: "trips", label: "Trips", icon: Bus },
@@ -38,6 +42,32 @@ const History = () => {
             <p className="text-xs text-muted-foreground">Trips, payments & summary</p>
           </div>
         </div>
+        {isAdmin && (
+          <div className="mx-auto flex max-w-lg px-4 pt-2">
+            <div className="flex rounded-lg border border-border bg-muted/50 p-0.5">
+              <button
+                onClick={() => setViewMode("all")}
+                className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                  viewMode === "all"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setViewMode("mine")}
+                className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                  viewMode === "mine"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                My Data
+              </button>
+            </div>
+          </div>
+        )}
         <div className="mx-auto flex max-w-lg gap-0 px-4 pt-2">
           {tabs.map((t) => (
             <button
@@ -57,9 +87,9 @@ const History = () => {
       </header>
 
       <main className="mx-auto max-w-lg space-y-3 p-4">
-        {tab === "trips" && <TripsTab />}
-        {tab === "payments" && <PaymentsTab />}
-        {tab === "summary" && <SummaryTab />}
+        {tab === "trips" && <TripsTab viewMine={!isAdmin || viewMode === "mine"} />}
+        {tab === "payments" && <PaymentsTab viewMine={!isAdmin || viewMode === "mine"} />}
+        {tab === "summary" && <SummaryTab viewMine={!isAdmin || viewMode === "mine"} />}
       </main>
 
       <BottomNav />
@@ -67,12 +97,11 @@ const History = () => {
   );
 };
 
-const TripsTab = () => {
+const TripsTab = ({ viewMine }: { viewMine: boolean }) => {
   const { role } = useRole();
   const isAdmin = role === "ADMIN";
   
-  // Admin sees all trips, user sees only their own
-  const trips = isAdmin ? mockTrips : mockTrips.filter(t => t.userId === mockCurrentUser.id);
+  const trips = viewMine ? mockTrips.filter(t => t.userId === mockCurrentUser.id) : mockTrips;
   
   const grouped = trips.reduce((acc, trip) => {
     if (!acc[trip.date]) acc[trip.date] = [];
@@ -124,9 +153,11 @@ const TripsTab = () => {
   );
 };
 
-const PaymentsTab = () => (
+const PaymentsTab = ({ viewMine }: { viewMine: boolean }) => {
+  const payments = viewMine ? mockPayments.filter(p => p.userId === mockCurrentUser.id) : mockPayments;
+  return (
   <div className="space-y-2">
-    {mockPayments.map((payment) => (
+    {payments.map((payment) => (
       <div key={payment.id} className="flex items-center gap-2.5 rounded-xl border border-border bg-card p-3 animate-fade-in">
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-settled/10">
           <CreditCard className="h-4 w-4 text-settled" />
@@ -144,12 +175,13 @@ const PaymentsTab = () => (
       </div>
     ))}
   </div>
-);
+  );
+};
 
-const SummaryTab = () => {
+const SummaryTab = ({ viewMine }: { viewMine: boolean }) => {
   const [expanded, setExpanded] = useState<string | null>(null);
   const { role } = useRole();
-  const isAdmin = role === "ADMIN";
+  const isAdmin = role === "ADMIN" && !viewMine;
 
   const totalAll = mockDebts.reduce((sum, d) => sum + d.perPersonTotal, 0);
   const pendingTotal = mockDebts.filter(d => d.status === "pending").reduce((sum, d) => sum + d.perPersonTotal, 0);
