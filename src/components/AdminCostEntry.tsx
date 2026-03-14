@@ -133,11 +133,17 @@ const AdminCostEntry = () => {
                       >
                         {isSelected && <Check className="h-3 w-3" />}
                       </div>
-                      <div className="flex-1 truncate">
-                        <span className="font-medium text-foreground">{trip.carName}</span>
-                        <span className="ml-1.5 text-xs text-muted-foreground">
-                          {formatDateBE(trip.date)}
-                        </span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-medium text-foreground truncate">{trip.carName}</span>
+                          <span className="text-xs text-muted-foreground whitespace-nowrap">
+                            {formatDateBE(trip.date)}
+                          </span>
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {trip.headcount} riders · Gas {formatBaht(trip.gasCost)}
+                          {trip.parkingCost > 0 && ` · Parking ${formatBaht(trip.parkingCost)}`}
+                        </div>
                       </div>
                     </button>
                   );
