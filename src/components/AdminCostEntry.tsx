@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { mockCars, mockDebts, formatBaht, formatDateBE } from "@/lib/mockData";
-import { Plus, Loader2, Fuel, ParkingCircle, Car, Link2, Check } from "lucide-react";
+import { Plus, Loader2, Fuel, ParkingCircle, Car, Link2, Check, ChevronDown } from "lucide-react";
 
 // Get unique recent trips (by date + car) for sharing parking
 const recentTrips = Array.from(
@@ -13,12 +13,15 @@ const recentTrips = Array.from(
   ).values()
 );
 
+const VISIBLE_TRIPS = 2;
+
 const AdminCostEntry = () => {
   const [selectedCar, setSelectedCar] = useState(mockCars[0]?.id || "");
   const [gasCost, setGasCost] = useState(mockCars[0]?.defaultGasCost?.toString() || "");
   const [parkingCost, setParkingCost] = useState("0");
   const [saving, setSaving] = useState(false);
   const [shareParking, setShareParking] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [selectedTrips, setSelectedTrips] = useState<string[]>(
     recentTrips.length > 0 ? [recentTrips[0].id] : []
   );
