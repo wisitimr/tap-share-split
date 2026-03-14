@@ -175,7 +175,8 @@ const PaymentsTab = ({ viewMine }: { viewMine: boolean }) => {
       </div>
     ))}
   </div>
-);
+  );
+};
 
 const SummaryTab = () => {
   const [expanded, setExpanded] = useState<string | null>(null);
