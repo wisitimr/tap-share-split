@@ -52,6 +52,7 @@ export interface DebtEntry {
   perPersonTotal: number;
   status: "pending" | "settled";
   tripNumber?: number;
+  linkedTripIds?: string[];
 }
 
 export interface Payment {
@@ -107,12 +108,14 @@ export const mockDebts: DebtEntry[] = [
     gasCost: 200, parkingCost: 100, headcount: 4,
     riders: ["Somchai", "Somying", "Somsri", "Sombat (Driver)"],
     perPersonGas: 50, perPersonParking: 25, perPersonTotal: 75, status: "pending", tripNumber: 1,
+    linkedTripIds: ["d2"],
   },
   {
     id: "d2", date: "2026-03-11", carName: "Toyota HiAce", licensePlate: "กก-1234",
     gasCost: 150, parkingCost: 75, headcount: 3,
     riders: ["Somchai", "Somying", "Sombat (Driver)"],
     perPersonGas: 50, perPersonParking: 25, perPersonTotal: 75, status: "pending", tripNumber: 1,
+    linkedTripIds: ["d1"],
   },
   {
     id: "d3", date: "2026-03-12", carName: "Nissan Urvan", licensePlate: "ขข-5678",
@@ -125,12 +128,14 @@ export const mockDebts: DebtEntry[] = [
     gasCost: 200, parkingCost: 60, headcount: 5,
     riders: ["Somchai", "Somying", "Somsri", "Noi", "Sombat (Driver)"],
     perPersonGas: 40, perPersonParking: 12, perPersonTotal: 52, status: "pending", tripNumber: 1,
+    linkedTripIds: ["d4b"],
   },
   {
     id: "d4b", date: "2026-03-08", carName: "Nissan Urvan", licensePlate: "ขข-5678",
     gasCost: 180, parkingCost: 40, headcount: 3,
     riders: ["Somchai", "Lek", "Sombat (Driver)"],
     perPersonGas: 60, perPersonParking: 13.33, perPersonTotal: 73.33, status: "pending", tripNumber: 1,
+    linkedTripIds: ["d4"],
   },
   {
     id: "d4c", date: "2026-03-06", carName: "Toyota HiAce", licensePlate: "กก-1234",
