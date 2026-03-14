@@ -1,13 +1,33 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { mockCars, formatBaht } from "@/lib/mockData";
-import { Plus, Loader2, Fuel, ParkingCircle, Car } from "lucide-react";
+import { mockCars, mockDebts, formatBaht, formatDateBE } from "@/lib/mockData";
+import { Plus, Loader2, Fuel, ParkingCircle, Car, Link2, Check } from "lucide-react";
+
+// Get unique recent trips (by date + car) for sharing parking
+const recentTrips = Array.from(
+  new Map(
+    mockDebts
+      .filter((d) => d.status === "pending")
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .map((d) => [`${d.date}-${d.carName}`, d])
+  ).values()
+);
 
 const AdminCostEntry = () => {
   const [selectedCar, setSelectedCar] = useState(mockCars[0]?.id || "");
   const [gasCost, setGasCost] = useState(mockCars[0]?.defaultGasCost?.toString() || "");
   const [parkingCost, setParkingCost] = useState("0");
   const [saving, setSaving] = useState(false);
+  const [shareParking, setShareParking] = useState(false);
+  const [selectedTrips, setSelectedTrips] = useState<string[]>(
+    recentTrips.length > 0 ? [recentTrips[0].id] : []
+  );
+
+  const toggleTrip = (tripId: string) => {
+    setSelectedTrips((prev) =>
+      prev.includes(tripId) ? prev.filter((id) => id !== tripId) : [...prev, tripId]
+    );
+  };
 
   const handleSave = async () => {
     setSaving(true);
