@@ -1,14 +1,27 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Users, Fuel, ParkingCircle } from "lucide-react";
-import { type DebtEntry, formatBaht, formatDateBE } from "@/lib/mockData";
+import { ChevronDown, ChevronUp, Users, Fuel, ParkingCircle, Link2 } from "lucide-react";
+import { type DebtEntry, mockDebts, formatBaht, formatDateBE } from "@/lib/mockData";
 
 interface BreakdownCardProps {
   entry: DebtEntry;
   showStatus?: boolean;
 }
 
+const getLinkedTripsInfo = (entry: DebtEntry) => {
+  if (!entry.linkedTripIds?.length || entry.parkingCost === 0) return null;
+  const linkedEntries = entry.linkedTripIds
+    .map((id) => mockDebts.find((d) => d.id === id))
+    .filter(Boolean) as DebtEntry[];
+  const allEntries = [entry, ...linkedEntries];
+  const allRiders = allEntries.flatMap((e) => e.riders);
+  const uniquePeople = [...new Set(allRiders)];
+  const totalParking = allEntries.reduce((sum, e) => sum + e.parkingCost, 0);
+  return { linkedEntries, uniquePeople, totalParking, allEntries };
+};
+
 const BreakdownCard = ({ entry, showStatus = true }: BreakdownCardProps) => {
   const [expanded, setExpanded] = useState(false);
+  const linkedInfo = getLinkedTripsInfo(entry);
 
   return (
     <div className="animate-fade-in rounded-2xl border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md">
@@ -30,6 +43,12 @@ const BreakdownCard = ({ entry, showStatus = true }: BreakdownCardProps) => {
                 }`}
               >
                 {entry.status === "settled" ? "Settled" : "Pending"}
+              </span>
+            )}
+            {linkedInfo && (
+              <span className="inline-flex items-center gap-0.5 rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
+                <Link2 className="h-2.5 w-2.5" />
+                Shared
               </span>
             )}
           </div>
@@ -76,13 +95,41 @@ const BreakdownCard = ({ entry, showStatus = true }: BreakdownCardProps) => {
               </span>
             </div>
             {entry.parkingCost > 0 && (
-              <div className="flex items-center gap-2 text-sm">
-                <ParkingCircle className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">Parking</span>
-                <span className="ml-auto font-mono text-foreground">
-                  {formatBaht(entry.parkingCost)} / {entry.headcount} = <strong>{formatBaht(entry.perPersonParking)}</strong>
-                </span>
-              </div>
+              <>
+                <div className="flex items-center gap-2 text-sm">
+                  <ParkingCircle className="h-4 w-4 text-primary" />
+                  <span className="text-muted-foreground">Parking</span>
+                  {linkedInfo ? (
+                    <span className="ml-auto font-mono text-foreground">
+                      {formatBaht(linkedInfo.totalParking)} / {linkedInfo.uniquePeople.length} = <strong>{formatBaht(linkedInfo.totalParking / linkedInfo.uniquePeople.length)}</strong>
+                    </span>
+                  ) : (
+                    <span className="ml-auto font-mono text-foreground">
+                      {formatBaht(entry.parkingCost)} / {entry.headcount} = <strong>{formatBaht(entry.perPersonParking)}</strong>
+                    </span>
+                  )}
+                </div>
+                {linkedInfo && (
+                  <div className="ml-6 space-y-1 rounded-lg bg-primary/5 p-2">
+                    <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
+                      <Link2 className="h-3 w-3" />
+                      Shared parking across {linkedInfo.allEntries.length} trips
+                    </div>
+                    {linkedInfo.allEntries.map((e) => (
+                      <div key={e.id} className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span>{e.carName} · {formatDateBE(e.date)}</span>
+                        <span className="font-mono">{formatBaht(e.parkingCost)} · {e.headcount} people</span>
+                      </div>
+                    ))}
+                    <div className="mt-1 border-t border-border/30 pt-1 text-xs text-muted-foreground">
+                      <span className="font-medium text-foreground">
+                        {linkedInfo.uniquePeople.length} unique people:
+                      </span>{" "}
+                      {linkedInfo.uniquePeople.join(", ")}
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
 
