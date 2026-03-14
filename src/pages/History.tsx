@@ -153,9 +153,11 @@ const TripsTab = ({ viewMine }: { viewMine: boolean }) => {
   );
 };
 
-const PaymentsTab = () => (
+const PaymentsTab = ({ viewMine }: { viewMine: boolean }) => {
+  const payments = viewMine ? mockPayments.filter(p => p.userId === mockCurrentUser.id) : mockPayments;
+  return (
   <div className="space-y-2">
-    {mockPayments.map((payment) => (
+    {payments.map((payment) => (
       <div key={payment.id} className="flex items-center gap-2.5 rounded-xl border border-border bg-card p-3 animate-fade-in">
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-settled/10">
           <CreditCard className="h-4 w-4 text-settled" />
