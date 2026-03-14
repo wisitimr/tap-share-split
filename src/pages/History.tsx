@@ -42,6 +42,32 @@ const History = () => {
             <p className="text-xs text-muted-foreground">Trips, payments & summary</p>
           </div>
         </div>
+        {isAdmin && (
+          <div className="mx-auto flex max-w-lg px-4 pt-2">
+            <div className="flex rounded-lg border border-border bg-muted/50 p-0.5">
+              <button
+                onClick={() => setViewMode("all")}
+                className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                  viewMode === "all"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setViewMode("mine")}
+                className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                  viewMode === "mine"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                My Data
+              </button>
+            </div>
+          </div>
+        )}
         <div className="mx-auto flex max-w-lg gap-0 px-4 pt-2">
           {tabs.map((t) => (
             <button
@@ -61,9 +87,9 @@ const History = () => {
       </header>
 
       <main className="mx-auto max-w-lg space-y-3 p-4">
-        {tab === "trips" && <TripsTab />}
-        {tab === "payments" && <PaymentsTab />}
-        {tab === "summary" && <SummaryTab />}
+        {tab === "trips" && <TripsTab viewMine={!isAdmin || viewMode === "mine"} />}
+        {tab === "payments" && <PaymentsTab viewMine={!isAdmin || viewMode === "mine"} />}
+        {tab === "summary" && <SummaryTab viewMine={!isAdmin || viewMode === "mine"} />}
       </main>
 
       <BottomNav />
