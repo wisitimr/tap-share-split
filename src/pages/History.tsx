@@ -16,9 +16,13 @@ import {
 import { Bus, Clock, CreditCard, BarChart3, ChevronDown, ChevronUp } from "lucide-react";
 
 type Tab = "trips" | "payments" | "summary";
+type ViewMode = "all" | "mine";
 
 const History = () => {
   const [tab, setTab] = useState<Tab>("trips");
+  const { role } = useRole();
+  const isAdmin = role === "ADMIN";
+  const [viewMode, setViewMode] = useState<ViewMode>("all");
 
   const tabs: { key: Tab; label: string; icon: typeof Bus }[] = [
     { key: "trips", label: "Trips", icon: Bus },
