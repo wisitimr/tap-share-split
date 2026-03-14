@@ -90,9 +90,85 @@ const AdminCostEntry = () => {
           </div>
         </div>
 
+        {/* Share Parking with Previous Trips */}
+        {Number(parkingCost) > 0 && (
+          <div className="space-y-2">
+            <button
+              type="button"
+              onClick={() => setShareParking(!shareParking)}
+              className={`flex w-full items-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors ${
+                shareParking
+                  ? "border-primary bg-primary/5 text-primary"
+                  : "border-input bg-background text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Link2 className="h-4 w-4" />
+              Share parking with previous trips
+            </button>
+
+            {shareParking && (
+              <div className="space-y-1.5 rounded-xl border border-border bg-accent/30 p-2.5">
+                <p className="text-xs font-medium text-muted-foreground">
+                  Select trips to split parking cost:
+                </p>
+                {recentTrips.map((trip) => {
+                  const isSelected = selectedTrips.includes(trip.id);
+                  return (
+                    <button
+                      key={trip.id}
+                      type="button"
+                      onClick={() => toggleTrip(trip.id)}
+                      className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-colors ${
+                        isSelected
+                          ? "bg-primary/10 text-foreground"
+                          : "text-muted-foreground hover:bg-accent"
+                      }`}
+                    >
+                      <div
+                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors ${
+                          isSelected
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-input bg-background"
+                        }`}
+                      >
+                        {isSelected && <Check className="h-3 w-3" />}
+                      </div>
+                      <div className="flex-1 truncate">
+                        <span className="font-medium text-foreground">{trip.carName}</span>
+                        <span className="ml-1.5 text-xs text-muted-foreground">
+                          {formatDateBE(trip.date)}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+                {selectedTrips.length > 0 && (
+                  <div className="mt-1 rounded-lg bg-primary/5 px-2.5 py-1.5 text-xs text-muted-foreground">
+                    Parking {formatBaht(Number(parkingCost))} ÷ {selectedTrips.length + 1} trips ={" "}
+                    <strong className="text-foreground">
+                      {formatBaht(Number(parkingCost) / (selectedTrips.length + 1))}
+                    </strong>{" "}
+                    each
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
         {(Number(gasCost) > 0 || Number(parkingCost) > 0) && (
           <div className="rounded-lg bg-accent/50 p-2 text-xs text-muted-foreground">
-            Total: <strong className="text-foreground">{formatBaht(Number(gasCost) + Number(parkingCost))}</strong>
+            Total: <strong className="text-foreground">
+              {formatBaht(
+                Number(gasCost) +
+                  (shareParking && selectedTrips.length > 0
+                    ? Number(parkingCost) / (selectedTrips.length + 1)
+                    : Number(parkingCost))
+              )}
+            </strong>
+            {shareParking && selectedTrips.length > 0 && (
+              <span className="ml-1 text-muted-foreground">(parking shared)</span>
+            )}
           </div>
         )}
 
