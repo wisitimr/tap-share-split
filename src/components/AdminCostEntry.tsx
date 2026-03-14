@@ -153,32 +153,7 @@ const AdminCostEntry = () => {
                 </button>
               )}
 
-              {selectedTrips.length > 0 && (
-                <div className="mt-1 rounded-lg bg-primary/5 px-2.5 py-1.5 text-xs text-muted-foreground">
-                  Parking {formatBaht(Number(parkingCost))} ÷ {selectedTrips.length + 1} trips ={" "}
-                  <strong className="text-foreground">
-                    {formatBaht(Number(parkingCost) / (selectedTrips.length + 1))}
-                  </strong>{" "}
-                  each
-                </div>
-              )}
             </div>
-          </div>
-        )}
-
-        {(Number(gasCost) > 0 || Number(parkingCost) > 0) && (
-          <div className="rounded-lg bg-accent/50 p-2 text-xs text-muted-foreground">
-            Total: <strong className="text-foreground">
-              {formatBaht(
-                Number(gasCost) +
-                  (selectedTrips.length > 0 && Number(parkingCost) > 0
-                    ? Number(parkingCost) / (selectedTrips.length + 1)
-                    : Number(parkingCost))
-              )}
-            </strong>
-            {selectedTrips.length > 0 && Number(parkingCost) > 0 && (
-              <span className="ml-1 text-muted-foreground">(parking shared)</span>
-            )}
           </div>
         )}
 
