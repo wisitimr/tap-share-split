@@ -97,12 +97,11 @@ const History = () => {
   );
 };
 
-const TripsTab = () => {
+const TripsTab = ({ viewMine }: { viewMine: boolean }) => {
   const { role } = useRole();
   const isAdmin = role === "ADMIN";
   
-  // Admin sees all trips, user sees only their own
-  const trips = isAdmin ? mockTrips : mockTrips.filter(t => t.userId === mockCurrentUser.id);
+  const trips = viewMine ? mockTrips.filter(t => t.userId === mockCurrentUser.id) : mockTrips;
   
   const grouped = trips.reduce((acc, trip) => {
     if (!acc[trip.date]) acc[trip.date] = [];
