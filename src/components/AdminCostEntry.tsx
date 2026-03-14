@@ -171,12 +171,12 @@ const AdminCostEntry = () => {
             Total: <strong className="text-foreground">
               {formatBaht(
                 Number(gasCost) +
-                  (shareParking && selectedTrips.length > 0
+                  (selectedTrips.length > 0 && Number(parkingCost) > 0
                     ? Number(parkingCost) / (selectedTrips.length + 1)
                     : Number(parkingCost))
               )}
             </strong>
-            {shareParking && selectedTrips.length > 0 && (
+            {selectedTrips.length > 0 && Number(parkingCost) > 0 && (
               <span className="ml-1 text-muted-foreground">(parking shared)</span>
             )}
           </div>
