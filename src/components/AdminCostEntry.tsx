@@ -134,7 +134,7 @@ const AdminCostEntry = () => {
                         </span>
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        {trip.headcount} riders · Gas {formatBaht(trip.gasCost)}
+                        {trip.headcount} people · Gas {formatBaht(trip.gasCost)}
                         {trip.parkingCost > 0 && ` · Parking ${formatBaht(trip.parkingCost)}`}
                       </div>
                     </div>
